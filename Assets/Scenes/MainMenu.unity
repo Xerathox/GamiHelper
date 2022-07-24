@@ -1041,7 +1041,7 @@ GameObject:
   - component: {fileID: 1470912189}
   - component: {fileID: 1470912188}
   m_Layer: 5
-  m_Name: Tic Tac Toe
+  m_Name: Michi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Tic Tac Toe
+  m_text: michi
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9c92e758fdf6bcd43a503aa7a0169709, type: 2}
   m_sharedMaterial: {fileID: 5794294829895089934, guid: 9c92e758fdf6bcd43a503aa7a0169709, type: 2}
