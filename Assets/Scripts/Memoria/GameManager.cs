@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine.Windows.Speech;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class GameManager : MonoBehaviour
 
     private bool m_PuedeSeleccionarFicha = true;
     private Ficha m_UltimaSeleccion = null;
+    //Reconocimiento de voz
+    private KeywordRecognizer keywordRecognizer;
+    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     [Header("Particulas")]
     [SerializeField] EmisorDeParticulas emisorDeParticulas;
@@ -55,7 +60,6 @@ public class GameManager : MonoBehaviour
         Singleton(); 
         m_Tablero = GetComponent<Tablero>();        
     }
-
     void Start()
     {
         //TIC TAC TOE Setapea al primer jugador 
@@ -68,7 +72,17 @@ public class GameManager : MonoBehaviour
         }
 
         m_Tablero.InicializarTablero();
-        ActualizarFichasRestantes();                
+        ActualizarFichasRestantes();  
+
+        //Reconocimiento de voz
+        //actions.Add("pausa", MostrarMenuPausa);
+        //actions.Add("reanudar", MostrarMenuPausa);
+        actions.Add("reiniciar", ReiniciarNivel);
+        actions.Add("salir", IrAMenuPrincipal);        
+
+        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+        keywordRecognizer.Start();     
     }
 
     public void ProcesarClickEnFicha(Ficha ficha) {
@@ -84,12 +98,10 @@ public class GameManager : MonoBehaviour
         }
         
     }
-
     private void PrimeraFichaSeleccionada(Ficha ficha) {
         m_UltimaSeleccion = ficha;
         ficha.MostrarFrente();
     }
-
     private void SegundaFichaSeleccionada(Ficha ficha) {
         if (ficha == m_UltimaSeleccion)
             return;
@@ -147,7 +159,6 @@ public class GameManager : MonoBehaviour
             PanelEmpate.SetActive(true);
         }
     }
-
     private void ParIncorrecto(Ficha ficha, Ficha ultimaSeleccion){
         //Deshacer las selecciones 
         m_UltimaSeleccion = null;
@@ -162,7 +173,6 @@ public class GameManager : MonoBehaviour
         //TIC TAC TOE Llamando a función para cambio de turno      
         ChangeTurn();
     }
-    
     private void Singleton() {
         if (instancia == null) {
             instancia = this;
@@ -177,7 +187,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(tiempo);
         m_PuedeSeleccionarFicha = true;
     }
-
     public void ActualizarFichasRestantes(){
         if (texto_FichasRestantes != null) {
             texto_FichasRestantes.text = "fichas restantes: " + m_Tablero.m_FichasRestantes.ToString();
@@ -188,11 +197,9 @@ public class GameManager : MonoBehaviour
     public void MostrarMenuPausa(bool estado){
         PanelPausa.SetActive(estado);
     }
-
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     public void IrAMenuPrincipal(){
         SceneManager.LoadScene("MainMenu");
     }
@@ -208,9 +215,15 @@ public class GameManager : MonoBehaviour
             playerOIcon.color = activePlayerColor;
         }
     }
-
     public string GetPlayersTurn() {
         return playerTurn;
+    }
+
+    //Reconocimiento de voz
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
+    {
+        Debug.Log(speech.text);
+        actions[speech.text].Invoke();
     }
 }
 

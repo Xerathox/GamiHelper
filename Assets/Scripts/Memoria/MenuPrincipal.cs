@@ -1,3 +1,6 @@
+using System;
+using System.Linq;
+using UnityEngine.Windows.Speech;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,22 +8,43 @@ using UnityEngine.SceneManagement;
 
 
 public class MenuPrincipal : MonoBehaviour{
-    
-    public void IniciarTic_Tac_Toe() {
+
+    //Reconocimiento de Voz
+    private KeywordRecognizer keywordRecognizer;
+    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+
+    void Start() {
+        actions.Add("tic tac tou", TicTacToe);
+        actions.Add("tic tac toe", TicTacToe);
+        actions.Add("memoria", Memoria);
+        actions.Add("damas", Damas);        
+        actions.Add("cerrar", SalirDeAplicación);   
+
+        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+        keywordRecognizer.Start();          
+    }
+
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
+    {
+        Debug.Log(speech.text);
+        actions[speech.text].Invoke();
+    }
+
+    private void TicTacToe(){
         SceneManager.LoadScene(1);
     }
-
-    public void IniciarMemoria() {
-        SceneManager.LoadScene(2);
+        
+    private void Memoria(){
+        SceneManager.LoadScene(2);        
     }
 
-    public void IniciarDamas() {
-        SceneManager.LoadScene(3);
-    }
-
+    private void Damas(){
+        SceneManager.LoadScene(3);      
+    } 
+     
     public void SalirDeAplicación() {
         Application.Quit();
-
     }
 }
 

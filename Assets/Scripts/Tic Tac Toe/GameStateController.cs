@@ -1,5 +1,7 @@
 using TMPro;
 using System;
+using System.Linq;
+using UnityEngine.Windows.Speech;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -26,6 +28,9 @@ public class GameStateController : MonoBehaviour
     [Header("Variables Privadas")] 
     private string playerTurn;
     private int moveCount;
+    //Reconocimiento de voz
+    private KeywordRecognizer keywordRecognizer;
+    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     [Header("Paneles")]
     [SerializeField] GameObject PanelPausa;
@@ -33,14 +38,23 @@ public class GameStateController : MonoBehaviour
     [SerializeField] GameObject PanelVictoria2;
     [SerializeField] GameObject PanelEmpate;
 
-    private void Start() {
+    void Start() {
         //Establece un rastreador del primer turno del jugador y establece el icono de la interfaz de usuario para saber de quién es el turno
         playerTurn = whoPlaysFirst;
         if (playerTurn == "X") playerOIcon.color = inactivePlayerColor;
         else playerXIcon.color = inactivePlayerColor;
+
+        //Reconocimiento de voz
+        actions.Add("pausa", MostrarMenuPausa);
+        actions.Add("reanudar", CerrarMenuPausa);
+        actions.Add("reiniciar", ReiniciarNivel);
+        actions.Add("salir", IrAMenuPrincipal);        
+
+        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+        keywordRecognizer.Start();    
     }
 
-    // Llama al final de cada turno para ver la condición de victoria
     public void EndTurn() {
         moveCount++;
         if (tileList[0].text == playerTurn && tileList[1].text == playerTurn && tileList[2].text == playerTurn) GameOver(playerTurn);
@@ -55,7 +69,6 @@ public class GameStateController : MonoBehaviour
         else
             ChangeTurn();
     }
-
     public void ChangeTurn() {
         playerTurn = (playerTurn == "X") ? "O" : "X";
         if (playerTurn == "X") {
@@ -67,7 +80,6 @@ public class GameStateController : MonoBehaviour
         }
     }
 
-    // Se llama a la función cuando un jugador gana o cuando hay empate
     private void GameOver(string winningPlayer) {
         switch (winningPlayer) {
             case "D": PanelEmpate.SetActive(true); break;
@@ -76,8 +88,7 @@ public class GameStateController : MonoBehaviour
         }        
         ToggleButtonState(false);
     }
-
- 
+    //editar a voz
     private void ToggleButtonState(bool state) {
         for (int i = 0; i < tileList.Length; i++)        
             tileList[i].GetComponentInParent<Button>().interactable = state;        
@@ -86,26 +97,28 @@ public class GameStateController : MonoBehaviour
     public string GetPlayersTurn() {
         return playerTurn;
     }
-
     public Sprite GetPlayerSprite() {
         if (playerTurn == "X") return tilePlayerX;
         else return tilePlayerO;
     }
-    
 
-    public void MostrarMenuPausa(bool estado){
-        PanelPausa.SetActive(estado);
+    public void MostrarMenuPausa(){
+        PanelPausa.SetActive(true);
     }
-
+    public void CerrarMenuPausa(){
+        PanelPausa.SetActive(false);
+    }
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     public void IrAMenuPrincipal(){
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void Exit(){
-        Application.Quit();
+    //Reconocimiento de voz
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
+    {
+        Debug.Log(speech.text);
+        actions[speech.text].Invoke();
     }
 }

@@ -26,7 +26,7 @@ public class Tablero : MonoBehaviour
 
         Vector2 posicionInicialFicha = CalcularPosicionInicialDeFicha();
         int cantidadDeFichas = m_AreaDeJuegoX * m_AreaDeJuegoY;
-        List<int> idsFichas = CrearListaDeIdsMezlcada(cantidadDeFichas);
+        List<int> idsFichas = CrearListaDeIdsMezclada(cantidadDeFichas);
 
         int fichasCreadas = 0;
 
@@ -58,7 +58,7 @@ public class Tablero : MonoBehaviour
         return new Vector2(mitadPosMaxX,mitadPosMaxY);
     }
 
-    private List<int> CrearListaDeIdsMezlcada(int cantidadDeFichas){
+    private List<int> CrearListaDeIdsMezclada(int cantidadDeFichas){
         List<int> idsFichas = new List<int>();
 
         for (int i = 0; i < cantidadDeFichas; i++) {
