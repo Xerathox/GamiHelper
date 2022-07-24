@@ -48,7 +48,7 @@ public class GameStateController : MonoBehaviour
         actions.Add("pausa", MostrarMenuPausa);
         actions.Add("reanudar", CerrarMenuPausa);
         actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("salir", IrAMenuPrincipal);        
+        actions.Add("cerrar", IrAMenuPrincipal);        
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;

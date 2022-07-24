@@ -78,15 +78,6 @@ ScriptsOnlyBuild:
     fullTypeName: MenuPrincipal
     methodName: "SalirDeAplicaci\xF3n"
   - assembly: Assembly-CSharp
-    fullTypeName: MenuPrincipal
-    methodName: IniciarDamas
-  - assembly: Assembly-CSharp
-    fullTypeName: MenuPrincipal
-    methodName: IniciarMemoria
-  - assembly: Assembly-CSharp
-    fullTypeName: MenuPrincipal
-    methodName: IniciarTic_Tac_Toe
-  - assembly: Assembly-CSharp
     fullTypeName: GameStateController
     methodName: IrAMenuPrincipal
   - assembly: Assembly-CSharp

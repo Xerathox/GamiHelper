@@ -75,14 +75,14 @@ public class GameManager : MonoBehaviour
         ActualizarFichasRestantes();  
 
         //Reconocimiento de voz
-        //actions.Add("pausa", MostrarMenuPausa);
-        //actions.Add("reanudar", MostrarMenuPausa);
+        actions.Add("pausa", MostrarMenuPausa);
+        actions.Add("reanudar", CerrarMenuPausa);
         actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("salir", IrAMenuPrincipal);        
+        actions.Add("cerrar", IrAMenuPrincipal);        
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();     
+        keywordRecognizer.Start();       
     }
 
     public void ProcesarClickEnFicha(Ficha ficha) {
@@ -194,8 +194,11 @@ public class GameManager : MonoBehaviour
     }
 
     //TIC TAC TOE Funciones para Menu Pausa
-    public void MostrarMenuPausa(bool estado){
-        PanelPausa.SetActive(estado);
+    public void MostrarMenuPausa(){
+        PanelPausa.SetActive(true);
+    }
+    public void CerrarMenuPausa(){
+        PanelPausa.SetActive(false);
     }
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

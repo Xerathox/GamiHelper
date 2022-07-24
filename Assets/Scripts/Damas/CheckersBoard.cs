@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System;
+using System.Linq;
+using UnityEngine.Windows.Speech;
+using UnityEngine.UI;
 
 public class CheckersBoard : MonoBehaviour
 {
@@ -23,6 +28,10 @@ public class CheckersBoard : MonoBehaviour
     private Vector2 startDrag;
     private Vector2 endDrag;
 
+    //Reconocimiento de voz
+    private KeywordRecognizer keywordRecognizer;
+    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+
     [Header("Paneles")]    
     [SerializeField] GameObject PanelVictoria1;
     [SerializeField] GameObject PanelVictoria2;    
@@ -32,7 +41,17 @@ public class CheckersBoard : MonoBehaviour
         isWhiteTurn = true;
         forcedPieces = new List<Piece>();
 
-        GenerateBoard();        
+        GenerateBoard();
+
+        //Reconocimiento de voz
+        actions.Add("pausa", MostrarMenuPausa);
+        actions.Add("reanudar", CerrarMenuPausa);
+        actions.Add("reiniciar", ReiniciarNivel);
+        actions.Add("cerrar", IrAMenuPrincipal);        
+
+        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
+        keywordRecognizer.Start();   
     }
     private void Update() {
         UpdateMouseOver();
@@ -271,16 +290,23 @@ public class CheckersBoard : MonoBehaviour
     }
 
     //TIC TAC TOE Funciones para Menu Pausa
-    public void MostrarMenuPausa(bool estado){
-        PanelPausa.SetActive(estado);
+    public void MostrarMenuPausa(){
+        PanelPausa.SetActive(true);
     }
-
+    public void CerrarMenuPausa(){
+        PanelPausa.SetActive(false);
+    }
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
     public void IrAMenuPrincipal(){
         SceneManager.LoadScene("MainMenu");
     }
 
+    //Reconocimiento de voz
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
+    {
+        Debug.Log(speech.text);
+        actions[speech.text].Invoke();
+    }
 }

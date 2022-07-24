@@ -18,7 +18,7 @@ public class MenuPrincipal : MonoBehaviour{
         actions.Add("tic tac toe", TicTacToe);
         actions.Add("memoria", Memoria);
         actions.Add("damas", Damas);        
-        actions.Add("cerrar", SalirDeAplicación);   
+        actions.Add("salir", SalirDeAplicación);   
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
