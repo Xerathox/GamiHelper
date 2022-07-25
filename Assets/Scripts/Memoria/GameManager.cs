@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] AudioClip m_SonidoError;
 
     [Header("Paneles")]
-    [SerializeField] GameObject PanelDerrota;
     [SerializeField] GameObject PanelVictoria1;
     [SerializeField] GameObject PanelVictoria2;
     [SerializeField] GameObject PanelEmpate;

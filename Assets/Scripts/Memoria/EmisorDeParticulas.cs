@@ -14,7 +14,5 @@ public class EmisorDeParticulas : MonoBehaviour {
         GameObject particulas = Instantiate(m_Particulas, transform.position, m_Particulas.transform.rotation);
         particulas.transform.SetParent(this.gameObject.transform);
         Destroy(particulas, m_TiempoDeVida);
-    }
-
-   
+    }   
 }
