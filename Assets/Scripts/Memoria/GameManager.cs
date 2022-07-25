@@ -188,7 +188,7 @@ public class GameManager : MonoBehaviour
     }
     public void ActualizarFichasRestantes(){
         if (texto_FichasRestantes != null) {
-            texto_FichasRestantes.text = "fichas restantes: " + m_Tablero.m_FichasRestantes.ToString();
+            texto_FichasRestantes.text = "Fichas Restantes:" + m_Tablero.m_FichasRestantes.ToString();
         }
     }
 
