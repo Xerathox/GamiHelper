@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class Ficha : MonoBehaviour
 {
     public int Id {get;set;}
+    public GameController gameController;
 
     [SerializeField] private SpriteRenderer m_SpriteRenderer;
     [SerializeField] private Animator m_Animator;
 
     private void OnMouseDown() {
         if (!EventSystem.current.IsPointerOverGameObject()) {
-            GameManager.instancia.ProcesarClickEnFicha(this);
+            gameController.ProcesarClickEnFicha(this);
         }        
     }
 

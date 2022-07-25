@@ -2197,7 +2197,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: IrAMenuPrincipal
         m_Mode: 1
@@ -2936,7 +2936,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: IrAMenuPrincipal
         m_Mode: 1
@@ -3146,7 +3146,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ReiniciarNivel
         m_Mode: 1
@@ -3664,7 +3664,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ReiniciarNivel
         m_Mode: 1
@@ -4289,8 +4289,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1710824313}
-  - component: {fileID: 1710824312}
   - component: {fileID: 1710824314}
+  - component: {fileID: 1710824315}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4298,34 +4298,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1710824312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710824311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e81f993b766b2064088938efd72c20a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emisorDeParticulas: {fileID: 306107378}
-  m_SoundFX: {fileID: 1579948172}
-  m_SonidoAcierto: {fileID: 8300000, guid: 0cc590b656eb78a4db00bef3627bbf39, type: 3}
-  m_SonidoError: {fileID: 8300000, guid: 7da3682dbc7004f44a3e97d04766a58c, type: 3}
-  PanelVictoria1: {fileID: 753035240}
-  PanelVictoria2: {fileID: 634583216}
-  PanelEmpate: {fileID: 789304569}
-  PanelPausa: {fileID: 1358559524}
-  texto_FichasRestantes: {fileID: 785311014}
-  texto_puntajeJugador1: {fileID: 1489376321}
-  texto_puntajeJugador2: {fileID: 2077222776}
-  whoPlaysFirst: X
-  playerXIcon: {fileID: 3494813222320194979}
-  playerOIcon: {fileID: 4195962611055017743}
-  inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
-  activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1710824313
 Transform:
   m_ObjectHideFlags: 0
@@ -4368,6 +4340,35 @@ MonoBehaviour:
   - {fileID: -7247053429677066048, guid: ac621cc753937364287adc849928723c, type: 3}
   - {fileID: -2612475765610456502, guid: ac621cc753937364287adc849928723c, type: 3}
   - {fileID: 978570915530485626, guid: ac621cc753937364287adc849928723c, type: 3}
+  gameController: {fileID: 1710824315}
+--- !u!114 &1710824315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1710824311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 573ee3cbadfba82458616f96a74c733c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emisorDeParticulas: {fileID: 306107378}
+  m_SoundFX: {fileID: 1579948172}
+  m_SonidoAcierto: {fileID: 8300000, guid: 0cc590b656eb78a4db00bef3627bbf39, type: 3}
+  m_SonidoError: {fileID: 8300000, guid: 7da3682dbc7004f44a3e97d04766a58c, type: 3}
+  PanelVictoria1: {fileID: 753035240}
+  PanelVictoria2: {fileID: 634583216}
+  PanelEmpate: {fileID: 789304569}
+  PanelPausa: {fileID: 1358559524}
+  texto_FichasRestantes: {fileID: 785311014}
+  texto_puntajeJugador1: {fileID: 1489376321}
+  texto_puntajeJugador2: {fileID: 2077222776}
+  whoPlaysFirst: X
+  playerXIcon: {fileID: 3494813222320194979}
+  playerOIcon: {fileID: 4195962611055017743}
+  inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
+  activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1755263846
 GameObject:
   m_ObjectHideFlags: 0
@@ -4663,7 +4664,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: IrAMenuPrincipal
         m_Mode: 1
@@ -4979,7 +4980,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1710824312}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: ReiniciarNivel
         m_Mode: 1
@@ -5499,7 +5500,7 @@ PrefabInstance:
     - target: {fileID: 78776725221936613, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1710824312}
+      objectReference: {fileID: 0}
     - target: {fileID: 78776726512963429, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5527,7 +5528,7 @@ PrefabInstance:
     - target: {fileID: 78776726512963430, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1710824312}
+      objectReference: {fileID: 0}
     - target: {fileID: 78776726678404089, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -5555,7 +5556,7 @@ PrefabInstance:
     - target: {fileID: 78776726678404090, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1710824312}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b1c3c6d0e04ad48a524f4b5f63b8ad, type: 3}
 --- !u!222 &952300736838619658
@@ -5744,7 +5745,7 @@ PrefabInstance:
     - target: {fileID: 6372538352739889940, guid: 27dee1e2accc61748b7389e7238ef161, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1710824312}
+      objectReference: {fileID: 0}
     - target: {fileID: 6372538352739889941, guid: 27dee1e2accc61748b7389e7238ef161, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

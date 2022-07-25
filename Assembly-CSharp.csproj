@@ -36,11 +36,11 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Memoria\GameController.cs" />
      <Compile Include="Assets\Scripts\Tic Tac Toe\GameStateController.cs" />
      <Compile Include="Assets\Scripts\Memoria\Tablero.cs" />
      <Compile Include="Assets\Scripts\Memoria\Ficha.cs" />
      <Compile Include="Assets\Scripts\Damas\CheckersBoard.cs" />
-     <Compile Include="Assets\Scripts\Memoria\GameManager.cs" />
      <Compile Include="Assets\Scripts\Damas\Piece.cs" />
      <Compile Include="Assets\Scripts\Memoria\ShuffleListExtension.cs" />
      <Compile Include="Assets\Scripts\Memoria\MenuPrincipal.cs" />

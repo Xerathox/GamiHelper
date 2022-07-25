@@ -17,6 +17,8 @@ public class Tablero : MonoBehaviour
     public int m_FichasRestantes {get;set;}
 
     [SerializeField] private Sprite[] m_Imagenes;
+
+    public GameController gameController;
     
     public void InicializarTablero() {
 
@@ -32,6 +34,7 @@ public class Tablero : MonoBehaviour
 
         for (int x = 0; x < m_AreaDeJuegoX; x++) {
             for (int y = 0; y < m_AreaDeJuegoY; y++) {
+                m_Ficha.GetComponent<Ficha>().gameController = gameController;
                 GameObject fichaGO = Instantiate(m_Ficha);
                 fichaGO.transform.SetParent(m_areaDeJuego);
 

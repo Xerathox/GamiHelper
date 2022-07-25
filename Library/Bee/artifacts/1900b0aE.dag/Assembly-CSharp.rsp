@@ -359,7 +359,7 @@
 "Assets/Scripts/Damas/Piece.cs"
 "Assets/Scripts/Memoria/EmisorDeParticulas.cs"
 "Assets/Scripts/Memoria/Ficha.cs"
-"Assets/Scripts/Memoria/GameManager.cs"
+"Assets/Scripts/Memoria/GameController.cs"
 "Assets/Scripts/Memoria/MenuPrincipal.cs"
 "Assets/Scripts/Memoria/ShuffleListExtension.cs"
 "Assets/Scripts/Memoria/Tablero.cs"
