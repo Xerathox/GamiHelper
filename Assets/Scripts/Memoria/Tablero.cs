@@ -36,6 +36,9 @@ public class Tablero : MonoBehaviour
             for (int y = 0; y < m_AreaDeJuegoY; y++) {
                 m_Ficha.GetComponent<Ficha>().gameController = gameController;
                 GameObject fichaGO = Instantiate(m_Ficha);
+                //agregar ficha al arreglo gamecontroller
+                gameController.fichas[fichasCreadas] = fichaGO.GetComponent<Ficha>();
+
                 fichaGO.transform.SetParent(m_areaDeJuego);
 
                 Ficha fichaActual = fichaGO.GetComponent<Ficha>();
