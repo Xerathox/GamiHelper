@@ -31,6 +31,7 @@ public class GameStateController : MonoBehaviour
     //Reconocimiento de voz
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    private string TextoDicho;
 
     [Header("Paneles")]
     [SerializeField] GameObject PanelPausa;
@@ -48,7 +49,18 @@ public class GameStateController : MonoBehaviour
         actions.Add("pausa", MostrarMenuPausa);
         actions.Add("reanudar", CerrarMenuPausa);
         actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("cerrar", IrAMenuPrincipal);        
+        actions.Add("cerrar", IrAMenuPrincipal);  
+
+        //Comandos de voz       
+        actions.Add("a uno", VozMarcarCasilla);
+        actions.Add("b uno", VozMarcarCasilla);
+        actions.Add("c uno", VozMarcarCasilla);
+        actions.Add("a dos", VozMarcarCasilla);
+        actions.Add("b dos", VozMarcarCasilla);
+        actions.Add("c dos", VozMarcarCasilla);
+        actions.Add("a tres", VozMarcarCasilla);
+        actions.Add("b tres", VozMarcarCasilla);
+        actions.Add("c tres", VozMarcarCasilla);
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
@@ -118,7 +130,53 @@ public class GameStateController : MonoBehaviour
     //Reconocimiento de voz
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
     {
-        Debug.Log(speech.text);
+        //Debug.Log(speech.text);
+        TextoDicho = speech.text;
         actions[speech.text].Invoke();
+    }
+
+    public void VozMarcarCasilla(){
+        switch (TextoDicho)
+        {
+            case "a uno": 
+                tileList[0].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "b uno":
+                tileList[1].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "c uno":
+                tileList[2].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "a dos":
+                tileList[3].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "b dos":
+                tileList[4].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "c dos":
+                tileList[5].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "a tres":
+                tileList[6].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;  
+            case "b tres":
+                tileList[7].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;
+            case "c tres":
+                tileList[8].gameObject.GetComponentInParent<TileController>().UpdateTile();
+                Debug.Log(TextoDicho);
+                break;  
+            default:
+                break;
+        }        
+
     }
 }
