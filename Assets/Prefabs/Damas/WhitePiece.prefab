@@ -98,3 +98,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isWhite: 1
   isKing: 0
+  NameInGame: blanca

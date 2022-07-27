@@ -21,7 +21,7 @@ public class CheckersBoard : MonoBehaviour
     private bool isWhiteTurn;
     private bool hasKilled;
 
-    [SerializeField] private Piece selectedPiece;
+    [SerializeField] public Piece selectedPiece;
     private List<Piece> forcedPieces;
 
     private Vector2 mouseOver; //función del mouse
@@ -54,7 +54,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a uno", VozProcesar);
         actions.Add("b uno", VozProcesar);
         actions.Add("c uno", VozProcesar);
-        actions.Add("d uno", VozProcesar);
+        actions.Add("de uno", VozProcesar);
         actions.Add("e uno", VozProcesar);
         actions.Add("f uno", VozProcesar);
         actions.Add("g uno", VozProcesar);
@@ -62,7 +62,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a dos", VozProcesar);
         actions.Add("b dos", VozProcesar);
         actions.Add("c dos", VozProcesar);
-        actions.Add("d dos", VozProcesar);
+        actions.Add("de dos", VozProcesar);
         actions.Add("e dos", VozProcesar);
         actions.Add("f dos", VozProcesar);
         actions.Add("g dos", VozProcesar);
@@ -70,7 +70,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a tres", VozProcesar);
         actions.Add("b tres", VozProcesar);
         actions.Add("c tres", VozProcesar); 
-        actions.Add("d tres", VozProcesar);
+        actions.Add("de tres", VozProcesar);
         actions.Add("e tres", VozProcesar);
         actions.Add("f tres", VozProcesar);
         actions.Add("g tres", VozProcesar); 
@@ -78,7 +78,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a cuatro", VozProcesar);
         actions.Add("b cuatro", VozProcesar);
         actions.Add("c cuatro", VozProcesar); 
-        actions.Add("d cuatro", VozProcesar);  
+        actions.Add("de cuatro", VozProcesar);  
         actions.Add("e cuatro", VozProcesar);
         actions.Add("f cuatro", VozProcesar);
         actions.Add("g cuatro", VozProcesar); 
@@ -86,7 +86,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a cinco", VozProcesar);
         actions.Add("b cinco", VozProcesar);
         actions.Add("c cinco", VozProcesar); 
-        actions.Add("d cinco", VozProcesar);  
+        actions.Add("de cinco", VozProcesar);  
         actions.Add("e cinco", VozProcesar);
         actions.Add("f cinco", VozProcesar);
         actions.Add("g cinco", VozProcesar); 
@@ -94,7 +94,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a seis", VozProcesar);
         actions.Add("b seis", VozProcesar);
         actions.Add("c seis", VozProcesar); 
-        actions.Add("d seis", VozProcesar);  
+        actions.Add("de seis", VozProcesar);  
         actions.Add("e seis", VozProcesar);
         actions.Add("f seis", VozProcesar);
         actions.Add("g seis", VozProcesar); 
@@ -102,7 +102,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a siete", VozProcesar);
         actions.Add("b siete", VozProcesar);
         actions.Add("c siete", VozProcesar); 
-        actions.Add("d siete", VozProcesar);  
+        actions.Add("de siete", VozProcesar);  
         actions.Add("e siete", VozProcesar);
         actions.Add("f siete", VozProcesar);
         actions.Add("g siete", VozProcesar); 
@@ -110,7 +110,7 @@ public class CheckersBoard : MonoBehaviour
         actions.Add("a ocho", VozProcesar);
         actions.Add("b ocho", VozProcesar);
         actions.Add("c ocho", VozProcesar); 
-        actions.Add("d ocho", VozProcesar);  
+        actions.Add("de ocho", VozProcesar);  
         actions.Add("e ocho", VozProcesar);
         actions.Add("f ocho", VozProcesar);
         actions.Add("g ocho", VozProcesar); 
@@ -189,7 +189,7 @@ public class CheckersBoard : MonoBehaviour
             }            
             else { 
                 //Buscar por la pieza en nuestra lista de piezas forzadas 
-                if (forcedPieces.Find(fp => fp == p) == null) //no somos capaces de encontrar una ficha forzada
+                if (forcedPieces.Find(fp => fp == p) == null) //no somos capaces de encontrar una pieza forzada
                     return;
                 selectedPiece = p;
                 startDrag = mouseOver;
@@ -385,582 +385,838 @@ public class CheckersBoard : MonoBehaviour
     private void VozProcesar(){
         switch (TextoDicho)
         {
-            case "a uno": 
-                if (selectedPiece == null) {                    
-                    SelectPiece(0,7);   
+            case "a uno":
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,7);   
+                        startDrag = new Vector2(0,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {                    
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,7);                    
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b uno":
-                if (selectedPiece == null) {
-                    SelectPiece(1,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,7);   
+                        startDrag = new Vector2(1,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,7);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c uno":
-                if (selectedPiece == null) {
-                    SelectPiece(2,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,7);   
+                        startDrag = new Vector2(2,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
-            case "d uno": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,7);   
+            case "de uno": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,7);   
+                        startDrag = new Vector2(3,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "e uno":
-                if (selectedPiece == null) {
-                    SelectPiece(4,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,7);   
+                        startDrag = new Vector2(4,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "f uno":
-                if (selectedPiece == null) {
-                    SelectPiece(5,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,7);   
+                        startDrag = new Vector2(5,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "g uno": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,7);   
+                        startDrag = new Vector2(6,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "h uno":
-                if (selectedPiece == null) {
-                    SelectPiece(7,7);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,7);   
+                        startDrag = new Vector2(7,7);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,7);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,7);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "a dos": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,6);   
+                        startDrag = new Vector2(0,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,6);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b dos":
-                if (selectedPiece == null) {
-                    SelectPiece(1,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,6);   
+                        startDrag = new Vector2(1,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,6);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c dos":
-                if (selectedPiece == null) {
-                    SelectPiece(2,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,6);   
+                        startDrag = new Vector2(2,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,6);
-                }   
-                Debug.Log(TextoDicho);
                 break;
-            case "d dos": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,6);   
+            case "de dos": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,6);   
+                        startDrag = new Vector2(3,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,6);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "e dos":
-                if (selectedPiece == null) {
-                    SelectPiece(4,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,6);   
+                        startDrag = new Vector2(4,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,6);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "f dos":
-                if (selectedPiece == null) {
-                    SelectPiece(5,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,6);   
+                        startDrag = new Vector2(5,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,6);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "g dos": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,6);   
+                        startDrag = new Vector2(6,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,6);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "h dos":
-                if (selectedPiece == null) {
-                    SelectPiece(7,6);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,6);   
+                        startDrag = new Vector2(7,6);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,6);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,6);
-                }   
-                Debug.Log(TextoDicho);
-                break; 
+                break;
             case "a tres": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,5);   
+                        startDrag = new Vector2(0,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,5);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b tres":
-                if (selectedPiece == null) {
-                    SelectPiece(1,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,5);   
+                        startDrag = new Vector2(1,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,5);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c tres":
-                if (selectedPiece == null) {
-                    SelectPiece(2,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,5);   
+                        startDrag = new Vector2(2,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,5);
-                }   
-                Debug.Log(TextoDicho);
                 break;
-            case "d tres": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,5);   
+            case "de tres": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,5);   
+                        startDrag = new Vector2(3,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,5);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "e tres":
-                if (selectedPiece == null) {
-                    SelectPiece(4,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,5);   
+                        startDrag = new Vector2(4,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,5);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "f tres":
-                if (selectedPiece == null) {
-                    SelectPiece(5,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,5);   
+                        startDrag = new Vector2(5,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,5);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "g tres": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,5);   
+                        startDrag = new Vector2(6,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,5);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "h tres":
-                if (selectedPiece == null) {
-                    SelectPiece(7,5);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,5);   
+                        startDrag = new Vector2(7,5);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,5);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,5);
-                }   
-                Debug.Log(TextoDicho);
-                break;            
+                break;       
             case "a cuatro": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,4);   
+                        startDrag = new Vector2(0,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,4);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b cuatro":
-                if (selectedPiece == null) {
-                    SelectPiece(1,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,4);   
+                        startDrag = new Vector2(1,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,4);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c cuatro":
-                if (selectedPiece == null) {
-                    SelectPiece(2,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,4);   
+                        startDrag = new Vector2(2,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,4);
-                }   
-                Debug.Log(TextoDicho);
                 break;
-            case "d cuatro": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,4);   
+            case "de cuatro": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,4);   
+                        startDrag = new Vector2(3,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,4);
-                }   
-                Debug.Log(TextoDicho);              
                 break;
             case "e cuatro":
-                if (selectedPiece == null) {
-                    SelectPiece(4,4);   
+                 if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,4);   
+                        startDrag = new Vector2(4,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,4);
-                }   
-                Debug.Log(TextoDicho);                
                 break;
             case "f cuatro":
-                if (selectedPiece == null) {
-                    SelectPiece(5,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,4);   
+                        startDrag = new Vector2(5,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,4);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "g cuatro": 
-                 if (selectedPiece == null) {
-                    SelectPiece(6,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,4);   
+                        startDrag = new Vector2(6,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,4);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "h cuatro":
-                if (selectedPiece == null) {
-                    SelectPiece(7,4);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,4);   
+                        startDrag = new Vector2(7,4);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,4);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,4);
-                }   
-                Debug.Log(TextoDicho);
-                break;            
+                break;          
             case "a cinco": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,3);   
+                        startDrag = new Vector2(0,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,3);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b cinco":
-                if (selectedPiece == null) {
-                    SelectPiece(1,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,3);   
+                        startDrag = new Vector2(1,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,3);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c cinco":
-                if (selectedPiece == null) {
-                    SelectPiece(2,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,3);   
+                        startDrag = new Vector2(2,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,3);
-                }   
-                Debug.Log(TextoDicho);
                 break;
-            case "d cinco": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,3);   
+            case "de cinco": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,3);   
+                        startDrag = new Vector2(3,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,3);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "e cinco":
-                if (selectedPiece == null) {
-                    SelectPiece(4,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,3);   
+                        startDrag = new Vector2(4,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,3);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "f cinco":
-                if (selectedPiece == null) {
-                    SelectPiece(5,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,3);   
+                        startDrag = new Vector2(5,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,3);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "g cinco": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,3);   
+                        startDrag = new Vector2(6,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,3);
-                }   
-                Debug.Log(TextoDicho);
                 break;
             case "h cinco":
-                if (selectedPiece == null) {
-                    SelectPiece(7,3);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,3);   
+                        startDrag = new Vector2(0,3);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,3);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,3);
-                }   
-                Debug.Log(TextoDicho);
-                break;            
+                break;          
             case "a seis": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,2);   
+                        startDrag = new Vector2(0,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,2);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b seis":
-                if (selectedPiece == null) {
-                    SelectPiece(1,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,2);   
+                        startDrag = new Vector2(1,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,2);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c seis":
-                if (selectedPiece == null) {
-                    SelectPiece(2,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,2);   
+                        startDrag = new Vector2(2,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,2);
-                }     
-                Debug.Log(TextoDicho);
                 break;
-            case "d seis": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,2);   
+            case "de seis": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,2);   
+                        startDrag = new Vector2(3,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,2);
-                }     
-                Debug.Log(TextoDicho);
                 break;
             case "e seis":
-                if (selectedPiece == null) {
-                    SelectPiece(4,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,2);   
+                        startDrag = new Vector2(4,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,2);
-                }     
-                Debug.Log(TextoDicho);
                 break;
             case "f seis":
-                if (selectedPiece == null) {
-                    SelectPiece(5,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,2);   
+                        startDrag = new Vector2(5,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,2);
-                }     
-                Debug.Log(TextoDicho);
                 break;
             case "g seis": 
-                 if (selectedPiece == null) {
-                    SelectPiece(6,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,2);   
+                        startDrag = new Vector2(6,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,2);
-                }     
-                Debug.Log(TextoDicho);
                 break;
             case "h seis":
-                if (selectedPiece == null) {
-                    SelectPiece(7,2);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,2);   
+                        startDrag = new Vector2(7,2);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,2);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,2);
-                }     
-                Debug.Log(TextoDicho);
-                break;            
+                break;          
             case "a siete": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,1);   
+                        startDrag = new Vector2(0,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,1);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b siete":
-                if (selectedPiece == null) {
-                    SelectPiece(1,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,1);   
+                        startDrag = new Vector2(1,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,1);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c siete":
-                if (selectedPiece == null) {
-                    SelectPiece(2,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,1);   
+                        startDrag = new Vector2(2,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,1);
-                }                
-                Debug.Log(TextoDicho);
                 break;
-            case "d siete": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,1);   
+            case "de siete": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,1);   
+                        startDrag = new Vector2(3,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,1);
-                }      
-                Debug.Log(TextoDicho);
                 break;
             case "e siete":
-                if (selectedPiece == null) {
-                    SelectPiece(4,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,1);   
+                        startDrag = new Vector2(4,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,1);
-                }      
-                Debug.Log(TextoDicho);
                 break;
             case "f siete":
-                if (selectedPiece == null) {
-                    SelectPiece(5,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,1);   
+                        startDrag = new Vector2(5,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,1);
-                }      
-                Debug.Log(TextoDicho);
                 break;
             case "g siete": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,1);   
+                        startDrag = new Vector2(6,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,1);
-                }      
-                Debug.Log(TextoDicho);
                 break;
             case "h siete":
-                if (selectedPiece == null) {
-                    SelectPiece(7,1);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,1);   
+                        startDrag = new Vector2(7,1);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,1);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,1);
-                }      
-                Debug.Log(TextoDicho);
-                break;            
+                break;           
             case "a ocho": 
-                if (selectedPiece == null) {
-                    SelectPiece(0,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(0,0);   
+                        startDrag = new Vector2(0,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,0,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,0,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "b ocho":
-                if (selectedPiece == null) {
-                    SelectPiece(1,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(1,0);   
+                        startDrag = new Vector2(1,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,1,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,1,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "c ocho":
-                if (selectedPiece == null) {
-                    SelectPiece(2,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(2,0);   
+                        startDrag = new Vector2(2,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,2,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,2,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
-            case "d ocho": 
-                if (selectedPiece == null) {
-                    SelectPiece(3,0);   
+            case "de ocho": 
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(3,0);   
+                        startDrag = new Vector2(3,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,3,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,3,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "e ocho":
-                if (selectedPiece == null) {
-                    SelectPiece(4,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(4,0);   
+                        startDrag = new Vector2(4,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,4,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,4,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "f ocho":
-                if (selectedPiece == null) {
-                    SelectPiece(5,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(5,0);   
+                        startDrag = new Vector2(5,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,5,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,5,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "g ocho": 
-                if (selectedPiece == null) {
-                    SelectPiece(6,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(6,0);   
+                        startDrag = new Vector2(6,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,6,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,6,0);
-                }
-                Debug.Log(TextoDicho);
                 break;
             case "h ocho":
-                if (selectedPiece == null) {
-                    SelectPiece(7,0);   
+                if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
+                {
+                    if (selectedPiece == null) {
+                        SelectPiece(7,0);   
+                        startDrag = new Vector2(7,0);
+                    } 
+                    else {
+                        TryMove((int)startDrag.x,(int)startDrag.y,7,0);
+                    }                        
+                    Debug.Log(TextoDicho);
                 }
-                else {
-                    TryMove((int)startDrag.x,(int)startDrag.y,7,0);
-                }
-                Debug.Log(TextoDicho);
-                break;                         
+                break;                        
             default:
                 break;
         }        

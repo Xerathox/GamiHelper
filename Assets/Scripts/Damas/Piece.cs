@@ -6,6 +6,7 @@ public class Piece : MonoBehaviour
 {
     public bool isWhite;
     public bool isKing;
+    public string NameInGame = "-";
 
     public bool isForceToMove(Piece[,]board, int x, int y) {
         if (isWhite || isKing) {

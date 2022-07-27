@@ -356,6 +356,8 @@
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEditor.UI.ref.dll"
 -r:"Library/Bee/artifacts/1900b0aE.dag/UnityEngine.UI.ref.dll"
 "Assets/Scripts/Damas/CheckersBoard.cs"
+"Assets/Scripts/Damas/MostrarFichaSeleccionada.cs"
+"Assets/Scripts/Damas/MostrarTurno.cs"
 "Assets/Scripts/Damas/Piece.cs"
 "Assets/Scripts/Memoria/EmisorDeParticulas.cs"
 "Assets/Scripts/Memoria/Ficha.cs"
