@@ -365,6 +365,7 @@
 "Assets/Scripts/Memoria/MenuPrincipal.cs"
 "Assets/Scripts/Memoria/ShuffleListExtension.cs"
 "Assets/Scripts/Memoria/Tablero.cs"
+"Assets/Scripts/MiDiccionario.cs"
 "Assets/Scripts/Tic Tac Toe/GameStateController.cs"
 "Assets/Scripts/Tic Tac Toe/TileController.cs"
 -langversion:9.0

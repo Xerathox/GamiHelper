@@ -4353,6 +4353,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573ee3cbadfba82458616f96a74c733c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  columnas:
+  - key: a
+    value: 0
+  - key: b
+    value: 4
+  - key: c
+    value: 8
+  - key: d
+    value: 12
+  filas:
+  - key: uno
+    value: 3
+  - key: dos
+    value: 2
+  - key: tres
+    value: 1
+  - key: cuatro
+    value: 0
+  fichas:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   emisorDeParticulas: {fileID: 306107378}
   m_SoundFX: {fileID: 1579948172}
   m_SonidoAcierto: {fileID: 8300000, guid: 0cc590b656eb78a4db00bef3627bbf39, type: 3}

@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Tic Tac Toe\TileController.cs" />
      <Compile Include="Assets\Scripts\Damas\MostrarFichaSeleccionada.cs" />
      <Compile Include="Assets\Scripts\Damas\MostrarTurno.cs" />
+     <Compile Include="Assets\Scripts\MiDiccionario.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

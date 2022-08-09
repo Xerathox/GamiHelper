@@ -7,6 +7,8 @@ ScriptsOnlyBuild:
     - GameController
     - GameStateController
     - MenuPrincipal
+    - MostrarFichaSeleccionada
+    - MostrarTurno
     - Piece
     - Tablero
     - TileController
@@ -180,6 +182,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 6272}
     - Class: 114
       Script: {instanceID: 6628}
+    - Class: 114
+      Script: {instanceID: 8032}
+    - Class: 114
+      Script: {instanceID: 8616}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -428,7 +434,7 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: 49f78a5730365f5ee9abd9a3b8f3d85d
+      Hash: a3a66b911e94c904032203f818e29c17
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -848,7 +854,7 @@ ScriptsOnlyBuild:
     className: DictionaryAsset
   - hash:
       serializedVersion: 2
-      Hash: 12801a6ca546bcfca163c2af8a0f3592
+      Hash: 033aa48b1dc8585de6d6557dd9426dcd
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CheckersBoard
@@ -890,7 +896,7 @@ ScriptsOnlyBuild:
     className: UnityOnPointerClickMessageListener
   - hash:
       serializedVersion: 2
-      Hash: f3408f7c2c272e40ab304cc43ed5c51f
+      Hash: 9b3960258814d91fc0be92f62148fc3a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Piece
@@ -1268,6 +1274,12 @@ ScriptsOnlyBuild:
     className: UnityOnParticleCollisionMessageListener
   - hash:
       serializedVersion: 2
+      Hash: 354dcede279afebccd19797d3c9d9adb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MostrarFichaSeleccionada
+  - hash:
+      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Unity.VisualScripting.Core.dll
     namespaceName: Unity.VisualScripting
@@ -1332,6 +1344,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: 354dcede279afebccd19797d3c9d9adb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MostrarTurno
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f

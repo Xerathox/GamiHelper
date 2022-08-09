@@ -15,10 +15,13 @@ public class GameController : MonoBehaviour
 
     private bool m_PuedeSeleccionarFicha = true;
     private Ficha m_UltimaSeleccion = null;
+
     //Reconocimiento de voz
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
     private string TextoDicho;
+    public MiDiccionario[] columnas;
+    public MiDiccionario[] filas;
 
     public Ficha[] fichas = new Ficha[16];
 
@@ -82,24 +85,12 @@ public class GameController : MonoBehaviour
         actions.Add("reiniciar", ReiniciarNivel);
         actions.Add("cerrar", IrAMenuPrincipal);    
 
-
-        //Comandos de voz       
-        actions.Add("a uno", VozManejarTurno);
-        actions.Add("b uno", VozManejarTurno);
-        actions.Add("c uno", VozManejarTurno);
-        actions.Add("d uno", VozManejarTurno);
-        actions.Add("a dos", VozManejarTurno);
-        actions.Add("b dos", VozManejarTurno);
-        actions.Add("c dos", VozManejarTurno);
-        actions.Add("d dos", VozManejarTurno);
-        actions.Add("a tres", VozManejarTurno);
-        actions.Add("b tres", VozManejarTurno);
-        actions.Add("c tres", VozManejarTurno); 
-        actions.Add("d tres", VozManejarTurno);
-        actions.Add("a cuatro", VozManejarTurno);
-        actions.Add("b cuatro", VozManejarTurno);
-        actions.Add("c cuatro", VozManejarTurno); 
-        actions.Add("d cuatro", VozManejarTurno);  
+        //Comandos de voz  
+        foreach (var columna in columnas) {
+            foreach (var fila in filas) {
+                actions.Add(columna.key + ' ' +  fila.key , VozManejarTurno);
+            }   
+        }
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
@@ -254,75 +245,13 @@ public class GameController : MonoBehaviour
     }
 
     public void VozManejarTurno(){
-        switch (TextoDicho)
-        {
-            case "a uno": 
-                if (fichas[3])  ProcesarClickEnFicha(fichas[3]);
-                else Debug.Log("Ficha eliminada");                
-                break;
-            case "b uno":
-                if (fichas[7]) ProcesarClickEnFicha(fichas[7]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "c uno":
-                if (fichas[11]) ProcesarClickEnFicha(fichas[11]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "d uno":
-                if (fichas[15]) ProcesarClickEnFicha(fichas[15]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "a dos":
-                if (fichas[2]) ProcesarClickEnFicha(fichas[2]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "b dos":
-                if (fichas[6]) ProcesarClickEnFicha(fichas[6]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "c dos":
-                if (fichas[10]) ProcesarClickEnFicha(fichas[10]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "d dos":
-                if (fichas[14]) ProcesarClickEnFicha(fichas[14]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "a tres":
-                if (fichas[1]) ProcesarClickEnFicha(fichas[1]);
-                else Debug.Log("Ficha eliminada");     
-                break;  
-            case "b tres":
-                if (fichas[5]) ProcesarClickEnFicha(fichas[5]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "c tres":
-                if (fichas[9]) ProcesarClickEnFicha(fichas[9]);
-                else Debug.Log("Ficha eliminada");     
-                break; 
-            case "d tres":
-                if (fichas[13]) ProcesarClickEnFicha(fichas[13]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "a cuatro":
-                if (fichas[0]) ProcesarClickEnFicha(fichas[0]);
-                else Debug.Log("Ficha eliminada");     
-                break;  
-            case "b cuatro":
-                if (fichas[4]) ProcesarClickEnFicha(fichas[4]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            case "c cuatro":
-                if (fichas[8]) ProcesarClickEnFicha(fichas[8]);
-                else Debug.Log("Ficha eliminada");     
-                break; 
-            case "d cuatro":
-                if (fichas[12]) ProcesarClickEnFicha(fichas[12]);
-                else Debug.Log("Ficha eliminada");     
-                break;
-            default:
-                break;
-        }        
+        string[] words = TextoDicho.Split(' ');
+        MiDiccionario columna = Array.Find(columnas, item => item.key == words[0]);
+        MiDiccionario fila = Array.Find(filas, item => item.key == words[1]);
+        int IdFicha = columna.value + fila.value;
+
+        if (fichas[IdFicha])  ProcesarClickEnFicha(fichas[IdFicha]);
+            else Debug.Log("Ficha eliminada");
 
     }
 }
