@@ -16,6 +16,6 @@ public class MostrarFichaSeleccionada : MonoBehaviour
         if (checkersBoard.selectedPiece == null)        
             text.text = "Ninguna ficha seleccionada";        
         else        
-            text.text = "Ficha " + checkersBoard.selectedPiece.NameInGame + " seleccionada";        
+            text.text = "Ficha " + checkersBoard.origen_columna + ' ' + checkersBoard.origen_fila + " seleccionada";
     }
 }

@@ -46,7 +46,6 @@ public class Piece : MonoBehaviour
                     }
                 }
             }
-
             //abajo derecha            
             if(x <= 5 && y >= 2) {
                 Piece p = board[x + 1, y - 1];

@@ -32,6 +32,8 @@ public class CheckersBoard : MonoBehaviour
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
     private string TextoDicho;
+    public string origen_columna;
+    public string origen_fila;
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
@@ -126,7 +128,6 @@ public class CheckersBoard : MonoBehaviour
             if(forcedPieces.Count == 0) {
                 selectedPiece = p;
                 startDrag = mouseOver;
-
             }            
             else { 
                 //Buscar por la pieza en nuestra lista de piezas forzadas 
@@ -332,13 +333,17 @@ public class CheckersBoard : MonoBehaviour
         if((isWhite?isWhiteTurn : !isWhiteTurn)) //logica de turnos
         {
             if (selectedPiece == null) {
-                SelectPiece(columna.value,fila.value);   
+                SelectPiece(columna.value,fila.value);                
                 startDrag = new Vector2(columna.value,fila.value);
+                if (selectedPiece != null) {
+                    origen_columna = columna.key;
+                    origen_fila = fila.key;
+                }
             } 
             else {
                 TryMove((int)startDrag.x,(int)startDrag.y,columna.value,fila.value);
-            }                        
-            Debug.Log(TextoDicho);        
+            }           
+            Debug.Log(TextoDicho);
         }
     }
 }
