@@ -834,6 +834,20 @@ MonoBehaviour:
   inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
   activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
   whoPlaysFirst: X
+  columnas:
+  - key: a
+    value: 0
+  - key: b
+    value: 1
+  - key: c
+    value: 2
+  filas:
+  - key: uno
+    value: 0
+  - key: dos
+    value: 3
+  - key: tres
+    value: 6
   PanelPausa: {fileID: 767406518}
   PanelVictoria1: {fileID: 457411051702505004}
   PanelVictoria2: {fileID: 1557293143}

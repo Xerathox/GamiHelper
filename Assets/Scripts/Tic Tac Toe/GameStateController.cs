@@ -28,10 +28,13 @@ public class GameStateController : MonoBehaviour
     [Header("Variables Privadas")] 
     private string playerTurn;
     private int moveCount;
-    //Reconocimiento de voz
+
+    //Reconocimiento de voz     
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
     private string TextoDicho;
+    public MiDiccionario[] columnas;
+    public MiDiccionario[] filas;
 
     [Header("Paneles")]
     [SerializeField] GameObject PanelPausa;
@@ -51,16 +54,12 @@ public class GameStateController : MonoBehaviour
         actions.Add("reiniciar", ReiniciarNivel);
         actions.Add("cerrar", IrAMenuPrincipal);  
 
-        //Comandos de voz       
-        actions.Add("a uno", VozMarcarCasilla);
-        actions.Add("b uno", VozMarcarCasilla);
-        actions.Add("c uno", VozMarcarCasilla);
-        actions.Add("a dos", VozMarcarCasilla);
-        actions.Add("b dos", VozMarcarCasilla);
-        actions.Add("c dos", VozMarcarCasilla);
-        actions.Add("a tres", VozMarcarCasilla);
-        actions.Add("b tres", VozMarcarCasilla);
-        actions.Add("c tres", VozMarcarCasilla);
+        //Comandos de voz               
+        foreach (var columna in columnas) {
+            foreach (var fila in filas) {
+                actions.Add(columna.key + ' ' +  fila.key , VozMarcarCasilla);
+            }   
+        }
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
@@ -135,48 +134,14 @@ public class GameStateController : MonoBehaviour
         actions[speech.text].Invoke();
     }
 
-    public void VozMarcarCasilla(){
-        switch (TextoDicho)
-        {
-            case "a uno": 
-                tileList[0].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "b uno":
-                tileList[1].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "c uno":
-                tileList[2].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "a dos":
-                tileList[3].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "b dos":
-                tileList[4].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "c dos":
-                tileList[5].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "a tres":
-                tileList[6].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;  
-            case "b tres":
-                tileList[7].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;
-            case "c tres":
-                tileList[8].gameObject.GetComponentInParent<TileController>().UpdateTile();
-                Debug.Log(TextoDicho);
-                break;  
-            default:
-                break;
-        }        
+    public void VozMarcarCasilla() {
+        string[] words = TextoDicho.Split(' ');
+        MiDiccionario columna = Array.Find(columnas, item => item.key == words[0]);
+        MiDiccionario fila = Array.Find(filas, item => item.key == words[1]);
+        int IdFicha = columna.value + fila.value;
 
+        tileList[IdFicha].gameObject.GetComponentInParent<TileController>().UpdateTile();
+        Debug.Log(TextoDicho);
+        
     }
-}
+}    
