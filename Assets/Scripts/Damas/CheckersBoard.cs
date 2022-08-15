@@ -42,7 +42,16 @@ public class CheckersBoard : MonoBehaviour
     [SerializeField] GameObject PanelVictoria2;    
     [SerializeField] GameObject PanelPausa;
 
+    //Leer JSON
+    public TextAsset textJSON;
+
     private void Start(){
+        //Leer JSON
+        JSONInitializer jsonInitializer = new JSONInitializer();   
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        columnas = jsonInitializer.columna;
+        filas = jsonInitializer.fila;
+
         isWhiteTurn = true;
         forcedPieces = new List<Piece>();
 

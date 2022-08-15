@@ -3882,43 +3882,12 @@ MonoBehaviour:
   selectedPiece: {fileID: 0}
   origen_columna: 
   origen_fila: 
-  columnas:
-  - key: a
-    value: 0
-  - key: b
-    value: 1
-  - key: c
-    value: 2
-  - key: d
-    value: 3
-  - key: e
-    value: 4
-  - key: f
-    value: 5
-  - key: g
-    value: 6
-  - key: h
-    value: 7
-  filas:
-  - key: uno
-    value: 7
-  - key: dos
-    value: 6
-  - key: tres
-    value: 5
-  - key: cuatro
-    value: 4
-  - key: cinco
-    value: 3
-  - key: seis
-    value: 2
-  - key: siete
-    value: 1
-  - key: ocho
-    value: 0
+  columnas: []
+  filas: []
   PanelVictoria1: {fileID: 623853006}
   PanelVictoria2: {fileID: 1161753935}
   PanelPausa: {fileID: 1573702262}
+  textJSON: {fileID: 4900000, guid: b0304c954eed95e42a4a9f060295f7d9, type: 3}
 --- !u!65 &1811895747
 BoxCollider:
   m_ObjectHideFlags: 0

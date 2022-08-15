@@ -834,24 +834,13 @@ MonoBehaviour:
   inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
   activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
   whoPlaysFirst: X
-  columnas:
-  - key: a
-    value: 0
-  - key: b
-    value: 1
-  - key: c
-    value: 2
-  filas:
-  - key: uno
-    value: 0
-  - key: dos
-    value: 3
-  - key: tres
-    value: 6
   PanelPausa: {fileID: 767406518}
   PanelVictoria1: {fileID: 457411051702505004}
   PanelVictoria2: {fileID: 1557293143}
   PanelEmpate: {fileID: 2940103842101403566}
+  columnas: []
+  filas: []
+  textJSON: {fileID: 4900000, guid: b835f77db2750164aa55ac6f50261e44, type: 3}
 --- !u!1 &273797124
 GameObject:
   m_ObjectHideFlags: 0

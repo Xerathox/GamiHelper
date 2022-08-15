@@ -58,6 +58,9 @@ public class GameController : MonoBehaviour
     [Header("Configuracion del juego")]
     public Color inactivePlayerColor;
     public Color activePlayerColor;   
+
+    //Leer JSON
+    public TextAsset textJSON;
  
     void Awake()
     {
@@ -67,6 +70,12 @@ public class GameController : MonoBehaviour
     }
     void Start()
     {
+        //Leer JSON
+        JSONInitializer jsonInitializer = new JSONInitializer();   
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        columnas = jsonInitializer.columna;
+        filas = jsonInitializer.fila;
+
         //TIC TAC TOE Setapea al primer jugador 
         playerTurn = whoPlaysFirst;
         if (playerTurn == "X"){

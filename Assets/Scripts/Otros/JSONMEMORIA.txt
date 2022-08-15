@@ -1,0 +1,38 @@
+{
+    "columna": [
+        {
+            "key" : "a",
+            "value" : 0
+        },
+        {
+            "key" : "b",
+            "value" : 4
+        },
+        {
+            "key" : "c",
+            "value" : 8
+        },
+        {
+            "key" : "d",
+            "value" : 12
+        }
+    ],
+    "fila": [
+        {
+            "key" : "uno",
+            "value" : 3
+        },
+        {
+            "key" : "dos",
+            "value" : 2
+        },
+        {
+            "key" : "tres",
+            "value" : 1
+        },
+        {
+            "key" : "cuatro",
+            "value" : 0
+        }
+    ]
+}

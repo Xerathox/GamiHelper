@@ -4353,24 +4353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573ee3cbadfba82458616f96a74c733c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  columnas:
-  - key: a
-    value: 0
-  - key: b
-    value: 4
-  - key: c
-    value: 8
-  - key: d
-    value: 12
-  filas:
-  - key: uno
-    value: 3
-  - key: dos
-    value: 2
-  - key: tres
-    value: 1
-  - key: cuatro
-    value: 0
+  columnas: []
+  filas: []
   fichas:
   - {fileID: 0}
   - {fileID: 0}
@@ -4404,6 +4388,7 @@ MonoBehaviour:
   playerOIcon: {fileID: 4195962611055017743}
   inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
   activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
+  textJSON: {fileID: 4900000, guid: add194004c6f6bc4e99ca4b7949f1f06, type: 3}
 --- !u!1 &1755263846
 GameObject:
   m_ObjectHideFlags: 0

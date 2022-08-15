@@ -29,6 +29,12 @@ public class GameStateController : MonoBehaviour
     private string playerTurn;
     private int moveCount;
 
+    [Header("Paneles")]
+    [SerializeField] GameObject PanelPausa;
+    [SerializeField] GameObject PanelVictoria1;
+    [SerializeField] GameObject PanelVictoria2;
+    [SerializeField] GameObject PanelEmpate;
+
     //Reconocimiento de voz     
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
@@ -36,13 +42,17 @@ public class GameStateController : MonoBehaviour
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
-    [Header("Paneles")]
-    [SerializeField] GameObject PanelPausa;
-    [SerializeField] GameObject PanelVictoria1;
-    [SerializeField] GameObject PanelVictoria2;
-    [SerializeField] GameObject PanelEmpate;
+    //Leer JSON
+    public TextAsset textJSON;
+
 
     void Start() {
+        //Leer JSON
+        JSONInitializer jsonInitializer = new JSONInitializer();   
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        columnas = jsonInitializer.columna;
+        filas = jsonInitializer.fila;
+
         //Establece un rastreador del primer turno del jugador y establece el icono de la interfaz de usuario para saber de quién es el turno
         playerTurn = whoPlaysFirst;
         if (playerTurn == "X") playerOIcon.color = inactivePlayerColor;
@@ -63,7 +73,9 @@ public class GameStateController : MonoBehaviour
 
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();    
+        keywordRecognizer.Start();   
+
+         
     }
 
     public void EndTurn() {
@@ -145,3 +157,4 @@ public class GameStateController : MonoBehaviour
         
     }
 }    
+
