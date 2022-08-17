@@ -44,6 +44,7 @@ public class CheckersBoard : MonoBehaviour
 
     //Leer JSON
     public TextAsset textJSON;
+    public TextAsset textJSONMENU;
 
     private void Start(){
         //Leer JSON
@@ -52,16 +53,20 @@ public class CheckersBoard : MonoBehaviour
         columnas = jsonInitializer.columna;
         filas = jsonInitializer.fila;
 
+        JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);        
+
         isWhiteTurn = true;
         forcedPieces = new List<Piece>();
 
         GenerateBoard();
 
         //Reconocimiento de voz
-        actions.Add("pausa", MostrarMenuPausa);
-        actions.Add("reanudar", CerrarMenuPausa);
-        actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("cerrar", IrAMenuPrincipal);        
+        actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
+        actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
+     
 
         //Comandos de voz  
         foreach (var columna in columnas) {

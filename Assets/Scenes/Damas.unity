@@ -3888,6 +3888,7 @@ MonoBehaviour:
   PanelVictoria2: {fileID: 1161753935}
   PanelPausa: {fileID: 1573702262}
   textJSON: {fileID: 4900000, guid: b0304c954eed95e42a4a9f060295f7d9, type: 3}
+  textJSONMENU: {fileID: 4900000, guid: 9d3cca7e45911ff4b8cbaf6fb14b9521, type: 3}
 --- !u!65 &1811895747
 BoxCollider:
   m_ObjectHideFlags: 0

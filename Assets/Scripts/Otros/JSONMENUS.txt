@@ -1,0 +1,6 @@
+{
+    "pausa" : "pausa", 
+    "reanudar" : "reanudar",
+    "reiniciar" : "reiniciar",
+    "cerrar" : "cerrar"
+}

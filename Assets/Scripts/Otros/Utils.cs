@@ -13,6 +13,10 @@ public struct MiDiccionario {
 
 [System.Serializable]
 public class JSONInitializer{
-    public MiDiccionario[] columna;
-    public MiDiccionario[] fila;
+    public MiDiccionario[] columna, fila;  
+}
+
+[System.Serializable]
+public class JSONMenuInitializer{
+    public string pausa, reanudar, reiniciar, cerrar;
 }

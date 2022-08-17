@@ -61,6 +61,7 @@ public class GameController : MonoBehaviour
 
     //Leer JSON
     public TextAsset textJSON;
+    public TextAsset textJSONMENU;
  
     void Awake()
     {
@@ -76,6 +77,9 @@ public class GameController : MonoBehaviour
         columnas = jsonInitializer.columna;
         filas = jsonInitializer.fila;
 
+        JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);        
+
         //TIC TAC TOE Setapea al primer jugador 
         playerTurn = whoPlaysFirst;
         if (playerTurn == "X"){
@@ -89,10 +93,10 @@ public class GameController : MonoBehaviour
         ActualizarFichasRestantes();  
 
         //Reconocimiento de voz
-        actions.Add("pausa", MostrarMenuPausa);
-        actions.Add("reanudar", CerrarMenuPausa);
-        actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("cerrar", IrAMenuPrincipal);    
+        actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
+        actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
 
         //Comandos de voz  
         foreach (var columna in columnas) {

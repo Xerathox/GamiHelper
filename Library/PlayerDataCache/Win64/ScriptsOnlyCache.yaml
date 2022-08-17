@@ -150,11 +150,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
     - Class: 81
-      Script: {instanceID: 0}
-    - Class: 89
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -183,9 +183,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6628}
     - Class: 114
-      Script: {instanceID: 8032}
+      Script: {instanceID: 8034}
     - Class: 114
-      Script: {instanceID: 8616}
+      Script: {instanceID: 8618}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -218,8 +218,6 @@ ScriptsOnlyBuild:
     - Class: 49
       Script: {instanceID: 0}
     - Class: 81
-      Script: {instanceID: 0}
-    - Class: 89
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -286,6 +284,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
@@ -297,6 +297,8 @@ ScriptsOnlyBuild:
     - Class: 82
       Script: {instanceID: 0}
     - Class: 83
+      Script: {instanceID: 0}
+    - Class: 89
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -367,6 +369,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 49
+      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 104
@@ -434,7 +438,7 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: a3a66b911e94c904032203f818e29c17
+      Hash: c42429fdfd571eb685411c2a3ff631d6
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -536,7 +540,7 @@ ScriptsOnlyBuild:
     className: PostProcessLayer
   - hash:
       serializedVersion: 2
-      Hash: 57a54ae020744cacfff2e98f2a028ae6
+      Hash: 725c4a779eb25a3ff97eb083917274ca
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameStateController
@@ -854,7 +858,7 @@ ScriptsOnlyBuild:
     className: DictionaryAsset
   - hash:
       serializedVersion: 2
-      Hash: 033aa48b1dc8585de6d6557dd9426dcd
+      Hash: 8337bfe54a45bd290211fb937d06b703
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CheckersBoard

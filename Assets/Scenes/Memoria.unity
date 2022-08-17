@@ -4389,6 +4389,7 @@ MonoBehaviour:
   inactivePlayerColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
   activePlayerColor: {r: 1, g: 1, b: 1, a: 1}
   textJSON: {fileID: 4900000, guid: add194004c6f6bc4e99ca4b7949f1f06, type: 3}
+  textJSONMENU: {fileID: 4900000, guid: 9d3cca7e45911ff4b8cbaf6fb14b9521, type: 3}
 --- !u!1 &1755263846
 GameObject:
   m_ObjectHideFlags: 0

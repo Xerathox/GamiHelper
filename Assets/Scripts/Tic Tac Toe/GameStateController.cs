@@ -44,14 +44,18 @@ public class GameStateController : MonoBehaviour
 
     //Leer JSON
     public TextAsset textJSON;
-
+    public TextAsset textJSONMENU;
 
     void Start() {
         //Leer JSON
-        JSONInitializer jsonInitializer = new JSONInitializer();   
+        JSONInitializer jsonInitializer = new JSONInitializer();    
         jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
         columnas = jsonInitializer.columna;
         filas = jsonInitializer.fila;
+
+        JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);
+        
 
         //Establece un rastreador del primer turno del jugador y establece el icono de la interfaz de usuario para saber de quién es el turno
         playerTurn = whoPlaysFirst;
@@ -59,10 +63,10 @@ public class GameStateController : MonoBehaviour
         else playerXIcon.color = inactivePlayerColor;
 
         //Reconocimiento de voz
-        actions.Add("pausa", MostrarMenuPausa);
-        actions.Add("reanudar", CerrarMenuPausa);
-        actions.Add("reiniciar", ReiniciarNivel);
-        actions.Add("cerrar", IrAMenuPrincipal);  
+        actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
+        actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
+        actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
 
         //Comandos de voz               
         foreach (var columna in columnas) {
