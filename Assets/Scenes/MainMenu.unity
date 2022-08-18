@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdda10963d97c204fa9f776607cc872b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textJSONMENU: {fileID: 4900000, guid: 9d3cca7e45911ff4b8cbaf6fb14b9521, type: 3}
 --- !u!1 &719357313
 GameObject:
   m_ObjectHideFlags: 0

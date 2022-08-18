@@ -18,5 +18,5 @@ public class JSONInitializer{
 
 [System.Serializable]
 public class JSONMenuInitializer{
-    public string pausa, reanudar, reiniciar, cerrar;
+    public string pausa, reanudar, reiniciar, cerrar, michi, memoria, damas, salir;    
 }

@@ -193,19 +193,10 @@ public class GameController : MonoBehaviour
         ficha.Invoke("MostrarReverso", 1.5f);
         ultimaSeleccion.Invoke("MostrarReverso", 1.5f);
         StartCoroutine(BloquearSeleccionPorTiempo(1.5f)); 
-
-        //TIC TAC TOE Llamando a función para cambio de turno      
+          
         ChangeTurn();
     }
-    /*
-    private void Singleton() {
-        if (instancia == null) {
-            instancia = this;
-        } else {
-            Destroy(gameObject);
-        }
-    } 
-    */
+
 
     IEnumerator BloquearSeleccionPorTiempo(float tiempo){
         m_PuedeSeleccionarFicha = false;

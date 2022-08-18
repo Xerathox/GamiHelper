@@ -6,19 +6,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class MenuPrincipal : MonoBehaviour{
+
+    public TextAsset textJSONMENU;
 
     //Reconocimiento de Voz
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     void Start() {
-        actions.Add("michi", TicTacToe);
-        actions.Add("tic tac toe", TicTacToe);
-        actions.Add("memoria", Memoria);
-        actions.Add("damas", Damas);        
-        actions.Add("salir", SalirDeAplicación);
+
+        JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);
+        
+        //Reconocimiento de voz
+        actions.Add(jSONMenuInitializer.michi, TicTacToe);
+        actions.Add(jSONMenuInitializer.memoria, Memoria);
+        actions.Add(jSONMenuInitializer.damas, Damas);
+        actions.Add(jSONMenuInitializer.salir, SalirDeAplicación); 
         
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;

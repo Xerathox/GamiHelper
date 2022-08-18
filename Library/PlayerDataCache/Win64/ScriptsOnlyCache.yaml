@@ -156,6 +156,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 89
+      Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
@@ -218,6 +220,8 @@ ScriptsOnlyBuild:
     - Class: 49
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 89
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
@@ -297,8 +301,6 @@ ScriptsOnlyBuild:
     - Class: 82
       Script: {instanceID: 0}
     - Class: 83
-      Script: {instanceID: 0}
-    - Class: 89
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -438,7 +440,7 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: c42429fdfd571eb685411c2a3ff631d6
+      Hash: b38f3eb6e5d42a53b663b68885fa69c9
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -540,7 +542,7 @@ ScriptsOnlyBuild:
     className: PostProcessLayer
   - hash:
       serializedVersion: 2
-      Hash: 725c4a779eb25a3ff97eb083917274ca
+      Hash: d10afa24498c585974a753d85700a62f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameStateController
@@ -858,7 +860,7 @@ ScriptsOnlyBuild:
     className: DictionaryAsset
   - hash:
       serializedVersion: 2
-      Hash: 8337bfe54a45bd290211fb937d06b703
+      Hash: 20dd906ae85d49e47de1647086b584b8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CheckersBoard

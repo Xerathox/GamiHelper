@@ -2,5 +2,9 @@
     "pausa" : "pausa", 
     "reanudar" : "reanudar",
     "reiniciar" : "reiniciar",
-    "cerrar" : "cerrar"
+    "cerrar" : "cerrar",
+    "michi" : "michi",
+    "memoria" : "memoria",
+    "damas" : "damas",
+    "salir" : "salir"
 }

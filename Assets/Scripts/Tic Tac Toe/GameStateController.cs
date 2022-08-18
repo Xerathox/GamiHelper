@@ -56,7 +56,6 @@ public class GameStateController : MonoBehaviour
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
         jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);
         
-
         //Establece un rastreador del primer turno del jugador y establece el icono de la interfaz de usuario para saber de quién es el turno
         playerTurn = whoPlaysFirst;
         if (playerTurn == "X") playerOIcon.color = inactivePlayerColor;
@@ -74,12 +73,9 @@ public class GameStateController : MonoBehaviour
                 actions.Add(columna.key + ' ' +  fila.key , VozMarcarCasilla);
             }   
         }
-
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();   
-
-         
+        keywordRecognizer.Start();         
     }
 
     public void EndTurn() {
