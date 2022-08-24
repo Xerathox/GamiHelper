@@ -217,11 +217,11 @@ public class GameController : MonoBehaviour
         PanelPausa.SetActive(false);
     }
     public void ReiniciarNivel(){
-        //keywordRecognizer = null;
+        keywordRecognizer = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void IrAMenuPrincipal(){
-        //keywordRecognizer = null;
+        keywordRecognizer = null;
         SceneManager.LoadScene("MainMenu");
     }
 
