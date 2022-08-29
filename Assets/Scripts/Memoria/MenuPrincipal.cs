@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuPrincipal : MonoBehaviour{
+public class MenuPrincipal : MonoBehaviour {
 
     public TextAsset textJSONMENU;
 
@@ -15,7 +15,6 @@ public class MenuPrincipal : MonoBehaviour{
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     void Start() {
-
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
         jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);
         
@@ -30,21 +29,20 @@ public class MenuPrincipal : MonoBehaviour{
         keywordRecognizer.Start();          
     }
 
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
-    {
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
         Debug.Log(speech.text);
         actions[speech.text].Invoke();
     }
 
-    private void TicTacToe(){
+    private void TicTacToe() {
         SceneManager.LoadScene(1);
     }
         
-    private void Memoria(){
+    private void Memoria() {
         SceneManager.LoadScene(2);        
     }
 
-    private void Damas(){
+    private void Damas() {
         SceneManager.LoadScene(3);      
     } 
      

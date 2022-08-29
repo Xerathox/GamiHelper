@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class GameStateController : MonoBehaviour
 {
@@ -43,13 +44,19 @@ public class GameStateController : MonoBehaviour
     public MiDiccionario[] filas;
 
     //Leer JSON
-    public TextAsset textJSON;
+    private string textJSON;
     public TextAsset textJSONMENU;
+
+    void Awake() {
+        LlamadoApi();
+    }
 
     void Start() {
         //Leer JSON
+        
+        Debug.Log(textJSON);
         JSONInitializer jsonInitializer = new JSONInitializer();    
-        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
         columnas = jsonInitializer.columna;
         filas = jsonInitializer.fila;
 
@@ -155,6 +162,22 @@ public class GameStateController : MonoBehaviour
         tileList[IdFicha].gameObject.GetComponentInParent<TileController>().UpdateTile();
         Debug.Log(TextoDicho);
         
+    }
+
+    void LlamadoApi () {
+        StartCoroutine(LlamadoApiCorrutina()); 
+    }
+
+    IEnumerator LlamadoApiCorrutina () {
+        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.txt");
+        yield return web.SendWebRequest();
+
+        if(!web.isNetworkError && !web.isHttpError){
+            Debug.Log(web.downloadHandler.text);
+            textJSON = web.downloadHandler.text;
+        } else{
+            Debug.LogWarning("hubo un problema con la web");
+        }
     }
 }    
 

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Tablero : MonoBehaviour
-{
+public class Tablero : MonoBehaviour {
     [Header("Valores")]
     [SerializeField] int m_AreaDeJuegoX = 4;
     [SerializeField] int m_AreaDeJuegoY = 4;
@@ -15,16 +14,13 @@ public class Tablero : MonoBehaviour
     [SerializeField] Transform m_areaDeJuego;    
 
     public int m_FichasRestantes {get;set;}
-
     [SerializeField] private Sprite[] m_Imagenes;
-
     public GameController gameController;
     
     public void InicializarTablero() {
 
-        if (m_AreaDeJuegoX * m_AreaDeJuegoY % 2 != 0){
-            m_AreaDeJuegoY -=1;
-        }
+        if (m_AreaDeJuegoX * m_AreaDeJuegoY % 2 != 0)
+            m_AreaDeJuegoY -=1;        
 
         Vector2 posicionInicialFicha = CalcularPosicionInicialDeFicha();
         int cantidadDeFichas = m_AreaDeJuegoX * m_AreaDeJuegoY;
@@ -36,6 +32,7 @@ public class Tablero : MonoBehaviour
             for (int y = 0; y < m_AreaDeJuegoY; y++) {
                 m_Ficha.GetComponent<Ficha>().gameController = gameController;
                 GameObject fichaGO = Instantiate(m_Ficha);
+
                 //agregar ficha al arreglo gamecontroller
                 gameController.fichas[fichasCreadas] = fichaGO.GetComponent<Ficha>();
 
@@ -51,11 +48,10 @@ public class Tablero : MonoBehaviour
                 fichasCreadas++;
             }
         }
-
         m_FichasRestantes = fichasCreadas;
     }
 
-    private Vector2 CalcularPosicionInicialDeFicha(){
+    private Vector2 CalcularPosicionInicialDeFicha() {
         float posicionMaximaX = (m_AreaDeJuegoX - 1) * m_SeparacionEntreFichas.x;
         float posicionMaximaY = (m_AreaDeJuegoY - 1) * m_SeparacionEntreFichas.y;
 
@@ -64,14 +60,12 @@ public class Tablero : MonoBehaviour
         return new Vector2(mitadPosMaxX,mitadPosMaxY);
     }
 
-    private List<int> CrearListaDeIdsMezclada(int cantidadDeFichas){
+    private List<int> CrearListaDeIdsMezclada(int cantidadDeFichas) {
         List<int> idsFichas = new List<int>();
 
-        for (int i = 0; i < cantidadDeFichas; i++) {
-            idsFichas.Add(i/2);            
-        }
+        for (int i = 0; i < cantidadDeFichas; i++)
+            idsFichas.Add(i/2);       
         idsFichas.Shuffle();
         return idsFichas;
     }
-
 }

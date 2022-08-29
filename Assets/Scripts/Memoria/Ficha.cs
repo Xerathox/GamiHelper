@@ -12,21 +12,19 @@ public class Ficha : MonoBehaviour
     [SerializeField] private Animator m_Animator;
 
     private void OnMouseDown() {
-        if (!EventSystem.current.IsPointerOverGameObject()) {
+        if (!EventSystem.current.IsPointerOverGameObject())
             gameController.ProcesarClickEnFicha(this);
-        }        
     }
 
-    public void MostrarFrente(){ //animacion de la ficha 
+    public void MostrarFrente() { //animacion de la ficha 
         m_Animator.Play("FichaDeAtrasAlFrente");
     }
 
-    public void MostrarReverso(){ //animacion de la ficha 
+    public void MostrarReverso() { //animacion de la ficha 
         m_Animator.Play("FichaDeFrenteAAtras");
     }
 
-    public void SetearImagen(Sprite sprite){
+    public void SetearImagen(Sprite sprite) {
         m_SpriteRenderer.sprite = sprite;
     }
-
 }

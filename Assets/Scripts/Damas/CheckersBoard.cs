@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using UnityEngine.Windows.Speech;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class CheckersBoard : MonoBehaviour {
     public Piece[,] pieces = new Piece[8,8];
@@ -40,13 +41,17 @@ public class CheckersBoard : MonoBehaviour {
     [SerializeField] GameObject victoryPanel2;    
     [SerializeField] GameObject pausePanel;
 
-    public TextAsset textJSON;
+    private string textJSON;
     public TextAsset textJSONMENU;
     
+    private void Awake() {
+        LlamadoApi();
+    }
+
     private void Start() {
         //Read JSON
         JSONInitializer jsonInitializer = new JSONInitializer();   
-        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
         columns = jsonInitializer.columna;
         rows = jsonInitializer.fila;
 
@@ -339,4 +344,21 @@ public class CheckersBoard : MonoBehaviour {
             Debug.Log(textsaid);
         }
     }
+
+    void LlamadoApi () {
+        StartCoroutine(LlamadoApiCorrutina()); 
+    }
+
+    IEnumerator LlamadoApiCorrutina () {
+        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.txt");
+        yield return web.SendWebRequest();
+
+        if(!web.isNetworkError && !web.isHttpError){
+            Debug.Log(web.downloadHandler.text);
+            textJSON = web.downloadHandler.text;
+        } else{
+            Debug.LogWarning("hubo un problema con la web");
+        }
+    }
+
 }

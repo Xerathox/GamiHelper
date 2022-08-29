@@ -7,12 +7,10 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.Windows.Speech;
+using UnityEngine.Networking;
 
-public class GameController : MonoBehaviour
-{
-    //public static GameController instancia;
-    private Tablero m_Tablero;   
-
+public class GameController : MonoBehaviour {    
+    private Tablero m_Tablero;
     private bool m_PuedeSeleccionarFicha = true;
     private Ficha m_UltimaSeleccion = null;
 
@@ -46,7 +44,7 @@ public class GameController : MonoBehaviour
     private int sumarPuntaje1 = 1;
     private int sumarPuntaje2 = 1;
 
-    //TIC TAC TOE Variables para cambio de turno
+    //Variables para cambio de turno
     [Header("Conteo de turnos")]
     public string whoPlaysFirst;
     private string playerTurn;
@@ -60,20 +58,18 @@ public class GameController : MonoBehaviour
     public Color activePlayerColor;   
 
     //Leer JSON
-    public TextAsset textJSON;
+    private string textJSON;
     public TextAsset textJSONMENU;
  
-    void Awake()
-    {
-        //instancia = this;
-        //Singleton(); 
+    void Awake() {
+        LlamadoApi();
         m_Tablero = GetComponent<Tablero>();        
     }
-    void Start()
-    {
+
+    void Start() {
         //Leer JSON
         JSONInitializer jsonInitializer = new JSONInitializer();   
-        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON.text);
+        jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
         columnas = jsonInitializer.columna;
         filas = jsonInitializer.fila;
 
@@ -82,12 +78,11 @@ public class GameController : MonoBehaviour
 
         //TIC TAC TOE Setapea al primer jugador 
         playerTurn = whoPlaysFirst;
-        if (playerTurn == "X"){
-            playerOIcon.color = inactivePlayerColor;
-        }
-        else{
+
+        if (playerTurn == "X")
+            playerOIcon.color = inactivePlayerColor;        
+        else
             playerXIcon.color = inactivePlayerColor;
-        }
 
         m_Tablero.InicializarTablero();
         ActualizarFichasRestantes();  
@@ -128,16 +123,12 @@ public class GameController : MonoBehaviour
     }
     private void SegundaFichaSeleccionada(Ficha ficha) {
         if (ficha == m_UltimaSeleccion)
-            return;
-        
+            return;        
         ficha.MostrarFrente();
-
-        if (ficha.Id == m_UltimaSeleccion.Id){
-            ParCorrecto(ficha,m_UltimaSeleccion);
-        }
-        else {
-            ParIncorrecto(ficha, m_UltimaSeleccion);
-        }        
+        if (ficha.Id == m_UltimaSeleccion.Id)
+            ParCorrecto(ficha,m_UltimaSeleccion);        
+        else 
+            ParIncorrecto(ficha, m_UltimaSeleccion);           
     }
 
     private void ParCorrecto(Ficha ficha, Ficha ultimaSeleccion){
@@ -150,9 +141,8 @@ public class GameController : MonoBehaviour
         emisorDeParticulas.EmitirParticulasDeAcierto(ultimaSeleccion.transform);
 
         //Emitir sonido acierto
-        if (m_SonidoAcierto != null) {
-            m_SoundFX.PlayOneShot(m_SonidoAcierto);
-        }        
+        if (m_SonidoAcierto != null)
+            m_SoundFX.PlayOneShot(m_SonidoAcierto);               
         //Resetear m_ultimaseleccion
         m_UltimaSeleccion = null;
         //Bloquear selección por cierto tiempo
@@ -170,26 +160,20 @@ public class GameController : MonoBehaviour
         }
 
         //Comprobar si ganamos el juego
-        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 > sumarPuntaje2) {
-            //Gana jugador 1
-            PanelVictoria1.SetActive(true);
-        } 
-        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 < sumarPuntaje2) {
-            //Gana jugador 2
-            PanelVictoria2.SetActive(true);
-        }
-        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 == sumarPuntaje2) {
-            //Empate
-            PanelEmpate.SetActive(true);
-        }
+        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 > sumarPuntaje2)            
+            PanelVictoria1.SetActive(true);        
+        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 < sumarPuntaje2)            
+            PanelVictoria2.SetActive(true);        
+        if (m_Tablero.m_FichasRestantes == 0 && sumarPuntaje1 == sumarPuntaje2)            
+            PanelEmpate.SetActive(true);        
     }
+
     private void ParIncorrecto(Ficha ficha, Ficha ultimaSeleccion){
         //Deshacer las selecciones 
         m_UltimaSeleccion = null;
         
-        if (m_SonidoError != null) {
-            m_SoundFX.PlayOneShot(m_SonidoError);
-        }           
+        if (m_SonidoError != null)
+            m_SoundFX.PlayOneShot(m_SonidoError);        
         ficha.Invoke("MostrarReverso", 1.5f);
         ultimaSeleccion.Invoke("MostrarReverso", 1.5f);
         StartCoroutine(BloquearSeleccionPorTiempo(1.5f)); 
@@ -197,35 +181,34 @@ public class GameController : MonoBehaviour
         ChangeTurn();
     }
 
-
     IEnumerator BloquearSeleccionPorTiempo(float tiempo){
         m_PuedeSeleccionarFicha = false;
         yield return new WaitForSeconds(tiempo);
         m_PuedeSeleccionarFicha = true;
     }
+
     public void ActualizarFichasRestantes(){
-        if (texto_FichasRestantes != null) {
-            texto_FichasRestantes.text = "Fichas Restantes:" + m_Tablero.m_FichasRestantes.ToString();
-        }
+        if (texto_FichasRestantes != null)
+            texto_FichasRestantes.text = "Fichas Restantes:" + m_Tablero.m_FichasRestantes.ToString();        
     }
 
     //TIC TAC TOE Funciones para Menu Pausa
-    public void MostrarMenuPausa(){
+    public void MostrarMenuPausa() {
         PanelPausa.SetActive(true);
     }
-    public void CerrarMenuPausa(){
+    public void CerrarMenuPausa() {
         PanelPausa.SetActive(false);
     }
-    public void ReiniciarNivel(){
+    public void ReiniciarNivel() {
         keywordRecognizer = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    public void IrAMenuPrincipal(){
+    public void IrAMenuPrincipal() {
         keywordRecognizer = null;
         SceneManager.LoadScene("MainMenu");
     }
 
-    //TIC TAC TOE Funciones para cambio de turno
+    //Funciones para cambio de turno
     public void ChangeTurn() {
         playerTurn = (playerTurn == "X") ? "O" : "X";
         if (playerTurn == "X") {
@@ -236,14 +219,13 @@ public class GameController : MonoBehaviour
             playerOIcon.color = activePlayerColor;
         }
     }
+
     public string GetPlayersTurn() {
         return playerTurn;
     }
 
     //Reconocimiento de voz
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
-    {
-        //Debug.Log(speech.text);
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
         TextoDicho = speech.text;
         actions[speech.text].Invoke();
     }
@@ -256,7 +238,22 @@ public class GameController : MonoBehaviour
 
         if (fichas[IdFicha])  ProcesarClickEnFicha(fichas[IdFicha]);
             else Debug.Log("Ficha eliminada");
+    }
 
+    void LlamadoApi () {
+        StartCoroutine(LlamadoApiCorrutina()); 
+    }
+
+    IEnumerator LlamadoApiCorrutina () {
+        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.txt");
+        yield return web.SendWebRequest();
+
+        if(!web.isNetworkError && !web.isHttpError){
+            Debug.Log(web.downloadHandler.text);
+            textJSON = web.downloadHandler.text;
+        } else{
+            Debug.LogWarning("hubo un problema con la web");
+        }
     }
 }
 
