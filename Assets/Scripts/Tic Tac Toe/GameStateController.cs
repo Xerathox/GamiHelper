@@ -44,14 +44,14 @@ public class GameStateController : MonoBehaviour
     public MiDiccionario[] filas;
 
     //Leer JSON
-    private string textJSON;
-    public TextAsset textJSONMENU;
+    public string textJSON;
+    public string textJSONMENU;
 
     void Awake() {
         LlamadoApi();
     }
 
-    void Start() {
+    void Start() {         
         //Leer JSON
         
         Debug.Log(textJSON);
@@ -61,7 +61,7 @@ public class GameStateController : MonoBehaviour
         filas = jsonInitializer.fila;
 
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
-        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU);
         
         //Establece un rastreador del primer turno del jugador y establece el icono de la interfaz de usuario para saber de quién es el turno
         playerTurn = whoPlaysFirst;
@@ -164,20 +164,30 @@ public class GameStateController : MonoBehaviour
         
     }
 
-    void LlamadoApi () {
+    void LlamadoApi() {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
 
-    IEnumerator LlamadoApiCorrutina () {
-        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.txt");
-        yield return web.SendWebRequest();
+    IEnumerator LlamadoApiCorrutina() {
+        UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.txt");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        yield return webtictactoe.SendWebRequest();
+        yield return webmenu.SendWebRequest();
 
-        if(!web.isNetworkError && !web.isHttpError){
-            Debug.Log(web.downloadHandler.text);
-            textJSON = web.downloadHandler.text;
-        } else{
-            Debug.LogWarning("hubo un problema con la web");
+        if(!webtictactoe.isNetworkError && !webtictactoe.isHttpError){
+            Debug.Log("CONEXION CON ÉXITO JSON MICHI");
+            textJSON = webtictactoe.downloadHandler.text;            
         }
+        else
+            Debug.LogWarning("hubo un problema con la web");        
+        
+        if(!webmenu.isNetworkError && !webmenu.isHttpError){
+            Debug.Log("CONEXION CON ÉXITO JSON MENU MICHI");
+            textJSONMENU = webmenu.downloadHandler.text;            
+        }
+        else
+            Debug.LogWarning("hubo un problema con la web");   
     }
 }    
+
 

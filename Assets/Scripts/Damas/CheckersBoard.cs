@@ -41,8 +41,8 @@ public class CheckersBoard : MonoBehaviour {
     [SerializeField] GameObject victoryPanel2;    
     [SerializeField] GameObject pausePanel;
 
-    private string textJSON;
-    public TextAsset textJSONMENU;
+    public string textJSON;
+    public string textJSONMENU;
     
     private void Awake() {
         LlamadoApi();
@@ -56,7 +56,7 @@ public class CheckersBoard : MonoBehaviour {
         rows = jsonInitializer.fila;
 
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
-        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);        
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU);        
 
         isWhiteTurn = true;
         forcedPieces = new List<Piece>();
@@ -349,16 +349,25 @@ public class CheckersBoard : MonoBehaviour {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
 
-    IEnumerator LlamadoApiCorrutina () {
-        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.txt");
-        yield return web.SendWebRequest();
+    IEnumerator LlamadoApiCorrutina() {
+        UnityWebRequest webtdamas = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.txt");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        yield return webtdamas.SendWebRequest();
+        yield return webmenu.SendWebRequest();
 
-        if(!web.isNetworkError && !web.isHttpError){
-            Debug.Log(web.downloadHandler.text);
-            textJSON = web.downloadHandler.text;
-        } else{
-            Debug.LogWarning("hubo un problema con la web");
+        if(!webtdamas.isNetworkError && !webtdamas.isHttpError) {
+            Debug.Log("CONEXION CON ÉXITO JSON DAMAS");
+            textJSON = webtdamas.downloadHandler.text;           
+        } 
+        else
+            Debug.LogWarning("hubo un problema con la web");  
+
+        if(!webmenu.isNetworkError && !webmenu.isHttpError){
+            Debug.Log("CONEXION CON ÉXITO JSON MENU DAMAS");
+            textJSONMENU = webmenu.downloadHandler.text;            
         }
+        else
+            Debug.LogWarning("hubo un problema con la web");        
     }
 
 }

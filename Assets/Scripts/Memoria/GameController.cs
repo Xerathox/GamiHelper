@@ -58,8 +58,8 @@ public class GameController : MonoBehaviour {
     public Color activePlayerColor;   
 
     //Leer JSON
-    private string textJSON;
-    public TextAsset textJSONMENU;
+    public string textJSON;
+    public string textJSONMENU;
  
     void Awake() {
         LlamadoApi();
@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour {
         filas = jsonInitializer.fila;
 
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
-        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU.text);        
+        jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU);        
 
         //TIC TAC TOE Setapea al primer jugador 
         playerTurn = whoPlaysFirst;
@@ -240,20 +240,30 @@ public class GameController : MonoBehaviour {
             else Debug.Log("Ficha eliminada");
     }
 
-    void LlamadoApi () {
+    void LlamadoApi() {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
 
-    IEnumerator LlamadoApiCorrutina () {
-        UnityWebRequest web = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.txt");
-        yield return web.SendWebRequest();
+    IEnumerator LlamadoApiCorrutina() {
+        UnityWebRequest webmemoria = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.txt");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        yield return webmemoria.SendWebRequest();
+        yield return webmenu.SendWebRequest();
 
-        if(!web.isNetworkError && !web.isHttpError){
-            Debug.Log(web.downloadHandler.text);
-            textJSON = web.downloadHandler.text;
-        } else{
-            Debug.LogWarning("hubo un problema con la web");
+        if(!webmemoria.isNetworkError && !webmemoria.isHttpError) {
+            Debug.Log("CONEXION CON ÉXITO JSON MEMORIA");
+            textJSON = webmemoria.downloadHandler.text;           
         }
+        else
+            Debug.LogWarning("hubo un problema con la web");        
+
+            
+        if(!webmenu.isNetworkError && !webmenu.isHttpError) {
+            Debug.Log("CONEXION CON ÉXITO JSON MENU MEMORIA");
+            textJSONMENU = webmenu.downloadHandler.text;            
+        }
+        else
+            Debug.LogWarning("hubo un problema con la web");   
     }
 }
 
