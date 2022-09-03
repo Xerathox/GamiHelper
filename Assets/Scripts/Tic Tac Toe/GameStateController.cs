@@ -51,7 +51,7 @@ public class GameStateController : MonoBehaviour
         LlamadoApi();
     }
 
-    void Start() {         
+    void Empezar() {         
         //Leer JSON
         
         Debug.Log(textJSON);
@@ -169,8 +169,8 @@ public class GameStateController : MonoBehaviour
     }
 
     IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.txt");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.json");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         yield return webtictactoe.SendWebRequest();
         yield return webmenu.SendWebRequest();
 
@@ -187,6 +187,7 @@ public class GameStateController : MonoBehaviour
         }
         else
             Debug.LogWarning("hubo un problema con la web");   
+        Empezar();
     }
 }    
 

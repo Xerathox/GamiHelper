@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour {
         m_Tablero = GetComponent<Tablero>();        
     }
 
-    void Start() {
+    void Empezar() {
         //Leer JSON
         JSONInitializer jsonInitializer = new JSONInitializer();   
         jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
@@ -245,8 +245,8 @@ public class GameController : MonoBehaviour {
     }
 
     IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webmemoria = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.txt");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        UnityWebRequest webmemoria = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.json");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         yield return webmemoria.SendWebRequest();
         yield return webmenu.SendWebRequest();
 
@@ -264,6 +264,7 @@ public class GameController : MonoBehaviour {
         }
         else
             Debug.LogWarning("hubo un problema con la web");   
+        Empezar();
     }
 }
 

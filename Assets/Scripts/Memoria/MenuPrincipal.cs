@@ -19,7 +19,7 @@ public class MenuPrincipal : MonoBehaviour {
         LlamadoApi();
     }
 
-    void Start() {
+    void Empezar() {
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
         jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU);
         
@@ -60,16 +60,16 @@ public class MenuPrincipal : MonoBehaviour {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
 
-    IEnumerator LlamadoApiCorrutina () {
-        UnityWebRequest webmenuprincipal = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+    IEnumerator LlamadoApiCorrutina() {
+        UnityWebRequest webmenuprincipal = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         yield return webmenuprincipal.SendWebRequest();
 
-        if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError){            
+        if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
             Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
             textJSONMENU = webmenuprincipal.downloadHandler.text;            
-        } else{
+        } else
             Debug.LogWarning("hubo un problema con la web");
-        }
+        Empezar();        
     }
 }
 

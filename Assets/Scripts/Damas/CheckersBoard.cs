@@ -48,7 +48,7 @@ public class CheckersBoard : MonoBehaviour {
         LlamadoApi();
     }
 
-    private void Start() {
+    private void Empezar() {
         //Read JSON
         JSONInitializer jsonInitializer = new JSONInitializer();   
         jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
@@ -350,8 +350,8 @@ public class CheckersBoard : MonoBehaviour {
     }
 
     IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webtdamas = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.txt");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.txt");
+        UnityWebRequest webtdamas = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.json");
+        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         yield return webtdamas.SendWebRequest();
         yield return webmenu.SendWebRequest();
 
@@ -368,6 +368,7 @@ public class CheckersBoard : MonoBehaviour {
         }
         else
             Debug.LogWarning("hubo un problema con la web");        
+        Empezar();
     }
 
 }
