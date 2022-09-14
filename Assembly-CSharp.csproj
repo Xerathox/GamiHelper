@@ -46,9 +46,12 @@
      <Compile Include="Assets\Scripts\Memoria\MenuPrincipal.cs" />
      <Compile Include="Assets\Scripts\Memoria\EmisorDeParticulas.cs" />
      <Compile Include="Assets\Scripts\Tic Tac Toe\TileController.cs" />
+     <Compile Include="Assets\Scripts\Otros\CargarPantalla.cs" />
      <Compile Include="Assets\Scripts\Otros\Utils.cs" />
      <Compile Include="Assets\Scripts\Damas\MostrarFichaSeleccionada.cs" />
      <Compile Include="Assets\Scripts\Damas\MostrarTurno.cs" />
+     <Compile Include="Assets\Scripts\Otros\LoadingManager.cs" />
+     <Compile Include="Assets\Scripts\Otros\ScreenIndices.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Scripts\Otros\JSONDAMAS.txt" />

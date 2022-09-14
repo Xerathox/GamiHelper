@@ -315,7 +315,7 @@ public class CheckersBoard : MonoBehaviour {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void GoMainMenu() {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
     //Voice Recognizer

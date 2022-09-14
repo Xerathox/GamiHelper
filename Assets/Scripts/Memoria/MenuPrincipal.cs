@@ -12,8 +12,8 @@ public class MenuPrincipal : MonoBehaviour {
     public string textJSONMENU;
 
     //Reconocimiento de Voz
-    private KeywordRecognizer keywordRecognizer;
-    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    public KeywordRecognizer keywordRecognizer;
+    public Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     void Awake() {
         LlamadoApi();
@@ -34,22 +34,21 @@ public class MenuPrincipal : MonoBehaviour {
         keywordRecognizer.Start();          
     }
 
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
+    public void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
         Debug.Log(speech.text);
         actions[speech.text].Invoke();
     }
 
-    private void TicTacToe() {
-        
-        SceneManager.LoadScene(1);
+    public void TicTacToe() {                
+        LoadingManager.NextScene(ScreenIndices.TICTACTOE);        
     }
         
-    private void Memoria() {
-        SceneManager.LoadScene(2);        
+    public void Memoria() {
+        LoadingManager.NextScene(ScreenIndices.MEMORIA);       
     }
 
-    private void Damas() {
-        SceneManager.LoadScene(3);      
+    public void Damas() {
+        LoadingManager.NextScene(ScreenIndices.DAMAS);     
     } 
      
     public void SalirDeAplicación() {

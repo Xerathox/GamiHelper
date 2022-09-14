@@ -137,12 +137,12 @@ public class GameStateController : MonoBehaviour
     }
     public void CerrarMenuPausa(){
         PanelPausa.SetActive(false);
-    }
+    }   
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void IrAMenuPrincipal(){
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
     //Reconocimiento de voz

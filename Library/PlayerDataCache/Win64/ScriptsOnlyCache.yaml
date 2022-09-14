@@ -127,9 +127,6 @@ ScriptsOnlyBuild:
   - assembly: Assembly-CSharp
     fullTypeName: TileController
     methodName: UpdateTile
-  - assembly: Assembly-CSharp
-    fullTypeName: CheckersBoard
-    methodName: MostrarMenuPausa
   sceneClasses:
     Assets/Scenes/Damas.unity:
     - Class: 1
@@ -149,8 +146,6 @@ ScriptsOnlyBuild:
     - Class: 43
       Script: {instanceID: 0}
     - Class: 48
-      Script: {instanceID: 0}
-    - Class: 49
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -288,8 +283,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
-    - Class: 49
-      Script: {instanceID: 0}
     - Class: 64
       Script: {instanceID: 0}
     - Class: 65
@@ -371,8 +364,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
-    - Class: 49
-      Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
     - Class: 104
@@ -440,7 +431,7 @@ ScriptsOnlyBuild:
     className: PanelRaycaster
   - hash:
       serializedVersion: 2
-      Hash: b38f3eb6e5d42a53b663b68885fa69c9
+      Hash: cd12da4381f2df3a9b3e27404e363df1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameController
@@ -542,7 +533,7 @@ ScriptsOnlyBuild:
     className: PostProcessLayer
   - hash:
       serializedVersion: 2
-      Hash: d10afa24498c585974a753d85700a62f
+      Hash: 2971b8fc9baaab7adb59806e93cad74a
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameStateController
@@ -860,7 +851,7 @@ ScriptsOnlyBuild:
     className: DictionaryAsset
   - hash:
       serializedVersion: 2
-      Hash: 20dd906ae85d49e47de1647086b584b8
+      Hash: 69fc65e952a45850f4d82c5a36018b1e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CheckersBoard
@@ -1088,7 +1079,7 @@ ScriptsOnlyBuild:
     className: UnityOnMouseUpAsButtonMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+      Hash: 7e99a59d05ecdcc0e4a174646bde8b92
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MenuPrincipal

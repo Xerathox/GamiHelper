@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Damas.unity
     guid: f4a61a19aa7f8a0418f325c1eb08abc2
+  - enabled: 1
+    path: Assets/Scenes/Barra Progreso.unity
+    guid: 8b277e499a57a6d4f87d3ee2f11d354d
   m_configObjects: {}

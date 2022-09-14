@@ -205,7 +205,7 @@ public class GameController : MonoBehaviour {
     }
     public void IrAMenuPrincipal() {
         keywordRecognizer = null;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
     //Funciones para cambio de turno
