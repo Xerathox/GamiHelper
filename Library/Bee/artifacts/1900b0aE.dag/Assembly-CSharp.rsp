@@ -368,6 +368,7 @@
 "Assets/Scripts/Otros/CargarPantalla.cs"
 "Assets/Scripts/Otros/LoadingManager.cs"
 "Assets/Scripts/Otros/ScreenIndices.cs"
+"Assets/Scripts/Otros/SpeechController.cs"
 "Assets/Scripts/Otros/Utils.cs"
 "Assets/Scripts/Tic Tac Toe/GameStateController.cs"
 "Assets/Scripts/Tic Tac Toe/TileController.cs"

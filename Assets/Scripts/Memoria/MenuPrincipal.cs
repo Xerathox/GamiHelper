@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Linq;
 using UnityEngine.Windows.Speech;
 using System.Collections;
@@ -60,16 +60,23 @@ public class MenuPrincipal : MonoBehaviour {
     }
 
     IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webmenuprincipal = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
-        yield return webmenuprincipal.SendWebRequest();
+        List<string> URL = new List<string>();
+        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
 
-        if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
-            Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
-            textJSONMENU = webmenuprincipal.downloadHandler.text;            
-        } else
-            Debug.LogWarning("hubo un problema con la web");
+        foreach (string i in URL) {
+            UnityWebRequest webmenuprincipal = UnityWebRequest.Get(i);
+            yield return webmenuprincipal.SendWebRequest();
+
+            if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSONMENU = webmenuprincipal.downloadHandler.text;            
+            } else
+                Debug.Log("hubo un problema con la web");
+            }
         Empezar();        
     }
 }
+
 
 
