@@ -171,22 +171,22 @@ public class GameStateController : MonoBehaviour
     IEnumerator LlamadoApiCorrutina() {
         UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.json");
         UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+
         yield return webtictactoe.SendWebRequest();
         yield return webmenu.SendWebRequest();
 
-        if(!webtictactoe.isNetworkError && !webtictactoe.isHttpError){
+        if(!webtictactoe.isNetworkError && !webtictactoe.isHttpError) {
             Debug.Log("CONEXION CON ÉXITO JSON MICHI");
-            textJSON = webtictactoe.downloadHandler.text;            
-        }
-        else
-            Debug.LogWarning("hubo un problema con la web");        
-        
-        if(!webmenu.isNetworkError && !webmenu.isHttpError){
-            Debug.Log("CONEXION CON ÉXITO JSON MENU MICHI");
-            textJSONMENU = webmenu.downloadHandler.text;            
-        }
-        else
-            Debug.LogWarning("hubo un problema con la web");   
+               textJSON = webtictactoe.downloadHandler.text;            
+        } else
+            Debug.Log("hubo un problema con la web");        
+
+        if (!webmenu.isNetworkError && !webmenu.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU MICHI");
+                textJSONMENU = webmenu.downloadHandler.text;            
+        } else
+            Debug.Log("hubo un problema con la web");    
+            
         Empezar();
     }
 }    

@@ -256,7 +256,6 @@ public class GameController : MonoBehaviour {
         }
         else
             Debug.LogWarning("hubo un problema con la web");        
-
             
         if(!webmenu.isNetworkError && !webmenu.isHttpError) {
             Debug.Log("CONEXION CON ÉXITO JSON MENU MEMORIA");
