@@ -167,7 +167,7 @@ public class GameStateController : MonoBehaviour
     void LlamadoApi() {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
-
+/*
     IEnumerator LlamadoApiCorrutina() {
         UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.json");
         UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
@@ -188,6 +188,45 @@ public class GameStateController : MonoBehaviour
             Debug.Log("hubo un problema con la web");    
             
         Empezar();
+    }
+*/
+
+    IEnumerator LlamadoApiCorrutina() {
+        List<string> URLTICTACTOE = new List<string>();
+        List<string> URLMENU = new List<string>();
+        
+        URLTICTACTOE.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.json");
+        URLTICTACTOE.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONTICTACTOE.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
+
+        foreach (string i in URLTICTACTOE) {
+            
+            UnityWebRequest  webtictactoe = UnityWebRequest.Get(i);
+            yield return webtictactoe.SendWebRequest();
+            
+            if(!webtictactoe.isNetworkError && !webtictactoe.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSON = webtictactoe.downloadHandler.text;
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+          
+        foreach (string i in URLMENU) {
+
+            UnityWebRequest webmenuprincipal = UnityWebRequest.Get(i);            
+            yield return webmenuprincipal.SendWebRequest();            
+           
+            if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSONMENU = webmenuprincipal.downloadHandler.text;            
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+
+        Empezar();        
     }
 }    
 

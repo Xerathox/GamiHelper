@@ -265,6 +265,8 @@ public class GameController : MonoBehaviour {
             Debug.LogWarning("hubo un problema con la web");   
         Empezar();
     }
+
+
 }
 
  

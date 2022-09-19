@@ -61,7 +61,7 @@ public class MenuPrincipal : MonoBehaviour {
 
     IEnumerator LlamadoApiCorrutina() {
         List<string> URL = new List<string>();
-        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.jsona");
         URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
 
         foreach (string i in URL) {
@@ -71,6 +71,7 @@ public class MenuPrincipal : MonoBehaviour {
             if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
                 Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
                 textJSONMENU = webmenuprincipal.downloadHandler.text;            
+                break;
             } else
                 Debug.Log("hubo un problema con la web");
             }
