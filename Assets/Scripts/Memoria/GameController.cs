@@ -15,9 +15,9 @@ public class GameController : MonoBehaviour {
     private Ficha m_UltimaSeleccion = null;
 
     //Reconocimiento de voz
-    private KeywordRecognizer keywordRecognizer;
-    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    private string TextoDicho;
+    //private KeywordRecognizer keywordRecognizer;
+    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    //private string TextoDicho;
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
@@ -88,21 +88,24 @@ public class GameController : MonoBehaviour {
         ActualizarFichasRestantes();  
 
         //Reconocimiento de voz
-        actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
-        actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
-        actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
-        actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
+        SpeechController.instance.actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
 
         //Comandos de voz  
         foreach (var columna in columnas) {
             foreach (var fila in filas) {
-                actions.Add(columna.key + ' ' +  fila.key , VozManejarTurno);
+                SpeechController.instance.actions.Add(columna.key + ' ' +  fila.key , VozManejarTurno);
             }   
         }
+        SpeechController.instance.IniciarSpeech(); //añadido
 
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
+/*
+        keywordRecognizer = new KeywordRecognizer(SpeechController.instance.actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
         keywordRecognizer.Start();       
+*/
     }
 
     public void ProcesarClickEnFicha(Ficha ficha) {
@@ -200,11 +203,11 @@ public class GameController : MonoBehaviour {
         PanelPausa.SetActive(false);
     }
     public void ReiniciarNivel() {
-        keywordRecognizer = null;
+        SpeechController.instance.keywordRecognizer = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void IrAMenuPrincipal() {
-        keywordRecognizer = null;
+        SpeechController.instance.keywordRecognizer = null;
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
@@ -223,15 +226,16 @@ public class GameController : MonoBehaviour {
     public string GetPlayersTurn() {
         return playerTurn;
     }
-
+/*
     //Reconocimiento de voz
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
-        TextoDicho = speech.text;
-        actions[speech.text].Invoke();
+        SpeechController.instance.TextoDicho = speech.text;
+        SpeechController.instance.actions[speech.text].Invoke();
     }
+*/
 
     public void VozManejarTurno(){
-        string[] words = TextoDicho.Split(' ');
+        string[] words = SpeechController.instance.TextoDicho.Split(' ');
         MiDiccionario columna = Array.Find(columnas, item => item.key == words[0]);
         MiDiccionario fila = Array.Find(filas, item => item.key == words[1]);
         int IdFicha = columna.value + fila.value;
@@ -244,6 +248,45 @@ public class GameController : MonoBehaviour {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
 
+
+    IEnumerator LlamadoApiCorrutina() {
+        List<string> URLMEMORIA = new List<string>();
+        List<string> URLMENU = new List<string>();
+                
+        URLMEMORIA.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.json");
+        URLMEMORIA.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMEMORIA.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
+
+        foreach (string i in URLMEMORIA) {
+            
+            UnityWebRequest webmemoria = UnityWebRequest.Get(i);
+            yield return webmemoria.SendWebRequest();
+            
+            if(!webmemoria.isNetworkError && !webmemoria.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSON = webmemoria.downloadHandler.text;
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+          
+        foreach (string i in URLMENU) {
+
+            UnityWebRequest webmenuprincipal = UnityWebRequest.Get(i);            
+            yield return webmenuprincipal.SendWebRequest();            
+           
+            if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSONMENU = webmenuprincipal.downloadHandler.text;            
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+
+        Empezar();        
+    }
+/*
     IEnumerator LlamadoApiCorrutina() {
         UnityWebRequest webmemoria = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.json");
         UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
@@ -265,6 +308,7 @@ public class GameController : MonoBehaviour {
             Debug.LogWarning("hubo un problema con la web");   
         Empezar();
     }
+*/
 
 
 }

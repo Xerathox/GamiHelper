@@ -28,9 +28,9 @@ public class CheckersBoard : MonoBehaviour {
     private Vector2 startDrag;
     private Vector2 endDrag;
     
-    private KeywordRecognizer keywordRecognizer;
-    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    private string TextoDicho;
+    //private KeywordRecognizer keywordRecognizer;
+    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    //private string TextoDicho;
     public string column_origin;
     public string row_origin;
     public MiDiccionario[] columns;
@@ -64,19 +64,21 @@ public class CheckersBoard : MonoBehaviour {
         GenerateBoard();
 
         //Voice Recognizer
-        actions.Add(jSONMenuInitializer.pausa, ShowMenuPause);
-        actions.Add(jSONMenuInitializer.reanudar, CloseMenuPause);
-        actions.Add(jSONMenuInitializer.reiniciar, RestartLevel);
-        actions.Add(jSONMenuInitializer.cerrar, GoMainMenu);  
+        SpeechController.instance.actions.Add(jSONMenuInitializer.pausa, ShowMenuPause);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reanudar, CloseMenuPause);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reiniciar, RestartLevel);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.cerrar, GoMainMenu);  
      
         //Comand voice
         foreach (var column in columns) 
             foreach (var row in rows)
-                actions.Add(column.key + ' ' +  row.key , VoiceProcessor);        
-
+                SpeechController.instance.actions.Add(column.key + ' ' +  row.key , VoiceProcessor);        
+        /*
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
         keywordRecognizer.Start();   
+        */
+        SpeechController.instance.IniciarSpeech(); //añadido
     }
     private void Update() {
         UpdateMouseOver();
@@ -317,15 +319,15 @@ public class CheckersBoard : MonoBehaviour {
     public void GoMainMenu() {
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
-
+    /*
     //Voice Recognizer
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
         TextoDicho = speech.text;
         actions[speech.text].Invoke();
     }
-    
+    */
     private void VoiceProcessor() {
-        string[] words = TextoDicho.Split(' ');
+        string[] words = SpeechController.instance.TextoDicho.Split(' ');
 
         MiDiccionario column = Array.Find(columns, item => item.key == words[0]);
         MiDiccionario row = Array.Find(rows, item => item.key == words[1]);
@@ -342,7 +344,7 @@ public class CheckersBoard : MonoBehaviour {
             } 
             else
                 TryMove((int)startDrag.x,(int)startDrag.y,column.value,row.value);                   
-            Debug.Log(TextoDicho);
+            Debug.Log(SpeechController.instance.TextoDicho);
         }
     }
 
@@ -351,8 +353,46 @@ public class CheckersBoard : MonoBehaviour {
     }
 
     IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webtdamas = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.json");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        List<string> URLDAMAS = new List<string>();
+        List<string> URLMENU = new List<string>();
+                
+        URLDAMAS.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONDAMAS.json");
+        URLDAMAS.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONDAMAS.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
+        URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
+
+        foreach (string i in URLDAMAS) {
+            
+            UnityWebRequest  webdamas = UnityWebRequest.Get(i);
+            yield return webdamas.SendWebRequest();
+            
+            if(!webdamas.isNetworkError && !webdamas.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSON = webdamas.downloadHandler.text;
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+          
+        foreach (string i in URLMENU) {
+
+            UnityWebRequest webmenuprincipal = UnityWebRequest.Get(i);            
+            yield return webmenuprincipal.SendWebRequest();            
+           
+            if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
+                Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
+                textJSONMENU = webmenuprincipal.downloadHandler.text;            
+                break;
+            } else
+                Debug.Log("hubo un problema con la web");
+        }
+
+        Empezar();        
+    }
+
+/*
+    IEnumerator LlamadoApiCorrutina() {
+        
         yield return webtdamas.SendWebRequest();
         yield return webmenu.SendWebRequest();
 
@@ -371,5 +411,5 @@ public class CheckersBoard : MonoBehaviour {
             Debug.LogWarning("hubo un problema con la web");        
         Empezar();
     }
-
+*/
 }

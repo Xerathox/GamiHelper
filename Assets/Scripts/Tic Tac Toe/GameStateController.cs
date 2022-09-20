@@ -85,7 +85,7 @@ public class GameStateController : MonoBehaviour
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
         keywordRecognizer.Start();        
         */
-        SpeechController.instance.IniciarSpeech();
+        SpeechController.instance.IniciarSpeech(); //añadir
     }
 
     public void EndTurn() {
