@@ -10,10 +10,11 @@ using UnityEngine.Networking;
 public class MenuPrincipal : MonoBehaviour {
 
     public string textJSONMENU;
+    //SpeechController objetoSpeechController;
 
     //Reconocimiento de Voz
-    public KeywordRecognizer keywordRecognizer;
-    public Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    //public KeywordRecognizer keywordRecognizer;
+    //public Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     void Awake() {
         LlamadoApi();
@@ -23,21 +24,25 @@ public class MenuPrincipal : MonoBehaviour {
         JSONMenuInitializer jSONMenuInitializer = new JSONMenuInitializer();
         jSONMenuInitializer = JsonUtility.FromJson<JSONMenuInitializer>(textJSONMENU);
         
-        //Reconocimiento de voz
-        actions.Add(jSONMenuInitializer.michi, TicTacToe);
-        actions.Add(jSONMenuInitializer.memoria, Memoria);
-        actions.Add(jSONMenuInitializer.damas, Damas);
-        actions.Add(jSONMenuInitializer.salir, SalirDeAplicación); 
-        
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();          
-    }
+        //Reconocimiento de voz        
+        SpeechController.instance.actions.Add(jSONMenuInitializer.michi, TicTacToe);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.memoria, Memoria);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.damas, Damas);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.salir, SalirDeAplicación); 
 
+        /*objetoSpeechController = new SpeechController(actions);        
+        SpeechController.instance.keywordRecognizer = new KeywordRecognizer(SpeechController.instance.actions.Keys.ToArray());
+        SpeechController.instance.keywordRecognizer.OnPhraseRecognized += SpeechController.instance.RecognizedSpeech;
+        SpeechController.instance.keywordRecognizer.Start();
+        */
+        SpeechController.instance.IniciarSpeech();
+    }
+/*
     public void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
         Debug.Log(speech.text);
-        actions[speech.text].Invoke();
+        SpeechController.instance.actions[speech.text].Invoke();
     }
+*/
 
     public void TicTacToe() {                
         LoadingManager.NextScene(ScreenIndices.TICTACTOE);        

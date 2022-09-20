@@ -37,9 +37,9 @@ public class GameStateController : MonoBehaviour
     [SerializeField] GameObject PanelEmpate;
 
     //Reconocimiento de voz     
-    private KeywordRecognizer keywordRecognizer;
-    private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    private string TextoDicho;
+    //private KeywordRecognizer keywordRecognizer;
+    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
+    //private string TextoDicho;
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
@@ -69,20 +69,23 @@ public class GameStateController : MonoBehaviour
         else playerXIcon.color = inactivePlayerColor;
 
         //Reconocimiento de voz
-        actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
-        actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
-        actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
-        actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
+        SpeechController.instance.actions.Add(jSONMenuInitializer.pausa, MostrarMenuPausa);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reanudar, CerrarMenuPausa);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.reiniciar, ReiniciarNivel);
+        SpeechController.instance.actions.Add(jSONMenuInitializer.cerrar, IrAMenuPrincipal);  
 
         //Comandos de voz               
         foreach (var columna in columnas) {
             foreach (var fila in filas) {
-                actions.Add(columna.key + ' ' +  fila.key , VozMarcarCasilla);
+                SpeechController.instance.actions.Add(columna.key + ' ' +  fila.key , VozMarcarCasilla);
             }   
         }
+        /*
         keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();         
+        keywordRecognizer.Start();        
+        */
+        SpeechController.instance.IniciarSpeech();
     }
 
     public void EndTurn() {
@@ -99,6 +102,7 @@ public class GameStateController : MonoBehaviour
         else
             ChangeTurn();
     }
+
     public void ChangeTurn() {
         playerTurn = (playerTurn == "X") ? "O" : "X";
         if (playerTurn == "X") {
@@ -146,21 +150,20 @@ public class GameStateController : MonoBehaviour
     }
 
     //Reconocimiento de voz
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech)
-    {
+    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
         //Debug.Log(speech.text);
-        TextoDicho = speech.text;
-        actions[speech.text].Invoke();
+        SpeechController.instance.TextoDicho = speech.text;
+        SpeechController.instance.actions[speech.text].Invoke();
     }
 
     public void VozMarcarCasilla() {
-        string[] words = TextoDicho.Split(' ');
+        string[] words = SpeechController.instance.TextoDicho.Split(' ');
         MiDiccionario columna = Array.Find(columnas, item => item.key == words[0]);
         MiDiccionario fila = Array.Find(filas, item => item.key == words[1]);
         int IdFicha = columna.value + fila.value;
 
         tileList[IdFicha].gameObject.GetComponentInParent<TileController>().UpdateTile();
-        Debug.Log(TextoDicho);
+        Debug.Log(SpeechController.instance.TextoDicho);
         
     }
 

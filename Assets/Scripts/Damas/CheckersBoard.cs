@@ -30,7 +30,7 @@ public class CheckersBoard : MonoBehaviour {
     
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    private string textsaid;
+    private string TextoDicho;
     public string column_origin;
     public string row_origin;
     public MiDiccionario[] columns;
@@ -320,11 +320,12 @@ public class CheckersBoard : MonoBehaviour {
 
     //Voice Recognizer
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
-        textsaid = speech.text;
+        TextoDicho = speech.text;
         actions[speech.text].Invoke();
     }
+    
     private void VoiceProcessor() {
-        string[] words = textsaid.Split(' ');
+        string[] words = TextoDicho.Split(' ');
 
         MiDiccionario column = Array.Find(columns, item => item.key == words[0]);
         MiDiccionario row = Array.Find(rows, item => item.key == words[1]);
@@ -341,7 +342,7 @@ public class CheckersBoard : MonoBehaviour {
             } 
             else
                 TryMove((int)startDrag.x,(int)startDrag.y,column.value,row.value);                   
-            Debug.Log(textsaid);
+            Debug.Log(TextoDicho);
         }
     }
 
