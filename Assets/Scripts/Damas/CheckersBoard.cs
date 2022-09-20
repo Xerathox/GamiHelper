@@ -27,10 +27,7 @@ public class CheckersBoard : MonoBehaviour {
     private Vector2 mouseOver;
     private Vector2 startDrag;
     private Vector2 endDrag;
-    
-    //private KeywordRecognizer keywordRecognizer;
-    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    //private string TextoDicho;
+
     public string column_origin;
     public string row_origin;
     public MiDiccionario[] columns;
@@ -73,13 +70,10 @@ public class CheckersBoard : MonoBehaviour {
         foreach (var column in columns) 
             foreach (var row in rows)
                 SpeechController.instance.actions.Add(column.key + ' ' +  row.key , VoiceProcessor);        
-        /*
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();   
-        */
-        SpeechController.instance.IniciarSpeech(); //añadido
+
+        SpeechController.instance.IniciarSpeech();
     }
+    
     private void Update() {
         UpdateMouseOver();
 
@@ -319,13 +313,7 @@ public class CheckersBoard : MonoBehaviour {
     public void GoMainMenu() {
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
-    /*
-    //Voice Recognizer
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
-        TextoDicho = speech.text;
-        actions[speech.text].Invoke();
-    }
-    */
+
     private void VoiceProcessor() {
         string[] words = SpeechController.instance.TextoDicho.Split(' ');
 
@@ -390,26 +378,4 @@ public class CheckersBoard : MonoBehaviour {
         Empezar();        
     }
 
-/*
-    IEnumerator LlamadoApiCorrutina() {
-        
-        yield return webtdamas.SendWebRequest();
-        yield return webmenu.SendWebRequest();
-
-        if(!webtdamas.isNetworkError && !webtdamas.isHttpError) {
-            Debug.Log("CONEXION CON ÉXITO JSON DAMAS");
-            textJSON = webtdamas.downloadHandler.text;           
-        } 
-        else
-            Debug.LogWarning("hubo un problema con la web");  
-
-        if(!webmenu.isNetworkError && !webmenu.isHttpError){
-            Debug.Log("CONEXION CON ÉXITO JSON MENU DAMAS");
-            textJSONMENU = webmenu.downloadHandler.text;            
-        }
-        else
-            Debug.LogWarning("hubo un problema con la web");        
-        Empezar();
-    }
-*/
 }

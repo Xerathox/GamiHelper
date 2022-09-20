@@ -15,9 +15,6 @@ public class GameController : MonoBehaviour {
     private Ficha m_UltimaSeleccion = null;
 
     //Reconocimiento de voz
-    //private KeywordRecognizer keywordRecognizer;
-    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    //private string TextoDicho;
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
@@ -99,24 +96,17 @@ public class GameController : MonoBehaviour {
                 SpeechController.instance.actions.Add(columna.key + ' ' +  fila.key , VozManejarTurno);
             }   
         }
-        SpeechController.instance.IniciarSpeech(); //añadido
+        SpeechController.instance.IniciarSpeech();
 
-/*
-        keywordRecognizer = new KeywordRecognizer(SpeechController.instance.actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();       
-*/
     }
 
     public void ProcesarClickEnFicha(Ficha ficha) {
         if (!m_PuedeSeleccionarFicha)
             return;
         if (!m_UltimaSeleccion) {
-            //Significa que esta es la primera ficha que damos vuelta
             PrimeraFichaSeleccionada(ficha);
         }
         else {
-            //Significa que es la segunda ficha que damos vuelta
             SegundaFichaSeleccionada(ficha);
         }        
     }
@@ -226,13 +216,6 @@ public class GameController : MonoBehaviour {
     public string GetPlayersTurn() {
         return playerTurn;
     }
-/*
-    //Reconocimiento de voz
-    private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {        
-        SpeechController.instance.TextoDicho = speech.text;
-        SpeechController.instance.actions[speech.text].Invoke();
-    }
-*/
 
     public void VozManejarTurno(){
         string[] words = SpeechController.instance.TextoDicho.Split(' ');
@@ -286,31 +269,5 @@ public class GameController : MonoBehaviour {
 
         Empezar();        
     }
-/*
-    IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webmemoria = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMEMORIA.json");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
-        yield return webmemoria.SendWebRequest();
-        yield return webmenu.SendWebRequest();
-
-        if(!webmemoria.isNetworkError && !webmemoria.isHttpError) {
-            Debug.Log("CONEXION CON ÉXITO JSON MEMORIA");
-            textJSON = webmemoria.downloadHandler.text;           
-        }
-        else
-            Debug.LogWarning("hubo un problema con la web");        
-            
-        if(!webmenu.isNetworkError && !webmenu.isHttpError) {
-            Debug.Log("CONEXION CON ÉXITO JSON MENU MEMORIA");
-            textJSONMENU = webmenu.downloadHandler.text;            
-        }
-        else
-            Debug.LogWarning("hubo un problema con la web");   
-        Empezar();
-    }
-*/
-
 
 }
-
- 

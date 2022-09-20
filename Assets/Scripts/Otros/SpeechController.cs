@@ -16,7 +16,7 @@ public class SpeechController : MonoBehaviour {
             instance = this;
         }
         else {
-            Debug.Log("C pudrió todo xdxdd");
+            Debug.Log("instance isn't working");
         }
     }
 
@@ -25,16 +25,6 @@ public class SpeechController : MonoBehaviour {
         keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
         keywordRecognizer.Start();
     }
-
-/*
-    public SpeechController(Dictionary<string, Action> actions) {
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();
-        //this.actions = actions;
-
-    }
-*/
 
     public void RecognizedSpeech(PhraseRecognizedEventArgs speech) {      
         TextoDicho = speech.text;      

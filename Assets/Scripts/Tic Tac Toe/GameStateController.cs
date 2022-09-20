@@ -36,10 +36,7 @@ public class GameStateController : MonoBehaviour
     [SerializeField] GameObject PanelVictoria2;
     [SerializeField] GameObject PanelEmpate;
 
-    //Reconocimiento de voz     
-    //private KeywordRecognizer keywordRecognizer;
-    //private Dictionary<string, Action> actions = new Dictionary<string, Action>();
-    //private string TextoDicho;
+    //Reconocimiento de voz
     public MiDiccionario[] columnas;
     public MiDiccionario[] filas;
 
@@ -52,8 +49,7 @@ public class GameStateController : MonoBehaviour
     }
 
     void Empezar() {         
-        //Leer JSON
-        
+        //Leer JSON        
         Debug.Log(textJSON);
         JSONInitializer jsonInitializer = new JSONInitializer();    
         jsonInitializer = JsonUtility.FromJson<JSONInitializer>(textJSON);
@@ -80,12 +76,7 @@ public class GameStateController : MonoBehaviour
                 SpeechController.instance.actions.Add(columna.key + ' ' +  fila.key , VozMarcarCasilla);
             }   
         }
-        /*
-        keywordRecognizer = new KeywordRecognizer(actions.Keys.ToArray());
-        keywordRecognizer.OnPhraseRecognized += RecognizedSpeech;
-        keywordRecognizer.Start();        
-        */
-        SpeechController.instance.IniciarSpeech(); //añadir
+        SpeechController.instance.IniciarSpeech();
     }
 
     public void EndTurn() {
@@ -122,7 +113,7 @@ public class GameStateController : MonoBehaviour
         }        
         ToggleButtonState(false);
     }
-    //editar a voz
+    
     private void ToggleButtonState(bool state) {
         for (int i = 0; i < tileList.Length; i++)        
             tileList[i].GetComponentInParent<Button>().interactable = state;        
@@ -139,19 +130,21 @@ public class GameStateController : MonoBehaviour
     public void MostrarMenuPausa(){
         PanelPausa.SetActive(true);
     }
+
     public void CerrarMenuPausa(){
         PanelPausa.SetActive(false);
-    }   
+    }  
+
     public void ReiniciarNivel(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public void IrAMenuPrincipal(){
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
     //Reconocimiento de voz
     private void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
-        //Debug.Log(speech.text);
         SpeechController.instance.TextoDicho = speech.text;
         SpeechController.instance.actions[speech.text].Invoke();
     }
@@ -170,29 +163,6 @@ public class GameStateController : MonoBehaviour
     void LlamadoApi() {
         StartCoroutine(LlamadoApiCorrutina()); 
     }
-/*
-    IEnumerator LlamadoApiCorrutina() {
-        UnityWebRequest webtictactoe = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONTICTACTOE.json");
-        UnityWebRequest webmenu = UnityWebRequest.Get("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
-
-        yield return webtictactoe.SendWebRequest();
-        yield return webmenu.SendWebRequest();
-
-        if(!webtictactoe.isNetworkError && !webtictactoe.isHttpError) {
-            Debug.Log("CONEXION CON ÉXITO JSON MICHI");
-               textJSON = webtictactoe.downloadHandler.text;            
-        } else
-            Debug.Log("hubo un problema con la web");        
-
-        if (!webmenu.isNetworkError && !webmenu.isHttpError) {
-                Debug.Log("CONEXION CON ÉXITO JSON MENU MICHI");
-                textJSONMENU = webmenu.downloadHandler.text;            
-        } else
-            Debug.Log("hubo un problema con la web");    
-            
-        Empezar();
-    }
-*/
 
     IEnumerator LlamadoApiCorrutina() {
         List<string> URLTICTACTOE = new List<string>();
@@ -203,8 +173,7 @@ public class GameStateController : MonoBehaviour
         URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         URLMENU.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
 
-        foreach (string i in URLTICTACTOE) {
-            
+        foreach (string i in URLTICTACTOE) {            
             UnityWebRequest  webtictactoe = UnityWebRequest.Get(i);
             yield return webtictactoe.SendWebRequest();
             

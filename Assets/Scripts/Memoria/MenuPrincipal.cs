@@ -10,11 +10,6 @@ using UnityEngine.Networking;
 public class MenuPrincipal : MonoBehaviour {
 
     public string textJSONMENU;
-    //SpeechController objetoSpeechController;
-
-    //Reconocimiento de Voz
-    //public KeywordRecognizer keywordRecognizer;
-    //public Dictionary<string, Action> actions = new Dictionary<string, Action>();
 
     void Awake() {
         LlamadoApi();
@@ -30,19 +25,8 @@ public class MenuPrincipal : MonoBehaviour {
         SpeechController.instance.actions.Add(jSONMenuInitializer.damas, Damas);
         SpeechController.instance.actions.Add(jSONMenuInitializer.salir, SalirDeAplicación); 
 
-        /*objetoSpeechController = new SpeechController(actions);        
-        SpeechController.instance.keywordRecognizer = new KeywordRecognizer(SpeechController.instance.actions.Keys.ToArray());
-        SpeechController.instance.keywordRecognizer.OnPhraseRecognized += SpeechController.instance.RecognizedSpeech;
-        SpeechController.instance.keywordRecognizer.Start();
-        */
         SpeechController.instance.IniciarSpeech();
     }
-/*
-    public void RecognizedSpeech(PhraseRecognizedEventArgs speech) {
-        Debug.Log(speech.text);
-        SpeechController.instance.actions[speech.text].Invoke();
-    }
-*/
 
     public void TicTacToe() {                
         LoadingManager.NextScene(ScreenIndices.TICTACTOE);        
@@ -73,7 +57,7 @@ public class MenuPrincipal : MonoBehaviour {
             UnityWebRequest webmenuprincipal = UnityWebRequest.Get(i);
             yield return webmenuprincipal.SendWebRequest();
 
-            if(!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
+            if (!webmenuprincipal.isNetworkError && !webmenuprincipal.isHttpError) {
                 Debug.Log("CONEXION CON ÉXITO JSON MENU PRINCIPAL");
                 textJSONMENU = webmenuprincipal.downloadHandler.text;            
                 break;
