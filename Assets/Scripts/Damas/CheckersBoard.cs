@@ -58,20 +58,21 @@ public class CheckersBoard : MonoBehaviour {
         isWhiteTurn = true;
         forcedPieces = new List<Piece>();
 
-        GenerateBoard();
-
         //Voice Recognizer
         SpeechController.instance.actions.Add(jSONMenuInitializer.pausa, ShowMenuPause);
         SpeechController.instance.actions.Add(jSONMenuInitializer.reanudar, CloseMenuPause);
         SpeechController.instance.actions.Add(jSONMenuInitializer.reiniciar, RestartLevel);
         SpeechController.instance.actions.Add(jSONMenuInitializer.cerrar, GoMainMenu);  
      
-        //Comand voice
+        //Command voice
         foreach (var column in columns) 
             foreach (var row in rows)
                 SpeechController.instance.actions.Add(column.key + ' ' +  row.key , VoiceProcessor);        
 
         SpeechController.instance.IniciarSpeech();
+        
+        //Se genera le juego
+        GenerateBoard();
     }
     
     private void Update() {
@@ -123,7 +124,7 @@ public class CheckersBoard : MonoBehaviour {
         }
     }
     private void SelectPiece (int x, int y) {
-        //if we are ouy of the array
+        //if we are out of the array
         if (x < 0 || x >= 8 || y < 0 || y >= 8)
             return;
         
@@ -293,9 +294,10 @@ public class CheckersBoard : MonoBehaviour {
         GameObject go = Instantiate((isPieceWhite) ? whitePiecePrefab : blackPiecePrefab) as GameObject;
         go.transform.SetParent(transform);
         Piece p = go.GetComponent<Piece>();
-        pieces[x,y] = p;
+        pieces[x,y] = p;        
         MovePiece(p,x,y);
     }
+    
     private void MovePiece(Piece p, int x, int y) {
         p.transform.position = (Vector3.right * x) + (Vector3.forward * y) + boardOffset + pieceOffset;
     }
