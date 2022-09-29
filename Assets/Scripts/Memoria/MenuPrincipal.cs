@@ -50,7 +50,7 @@ public class MenuPrincipal : MonoBehaviour {
 
     IEnumerator LlamadoApiCorrutina() {
         List<string> URL = new List<string>();
-        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.jsona");
+        URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles/main/JSONMENUS.json");
         URL.Add("https://raw.githubusercontent.com/Xerathox/JSONFiles2/main/JSONMENUS.json");
 
         foreach (string i in URL) {
@@ -63,7 +63,7 @@ public class MenuPrincipal : MonoBehaviour {
                 break;
             } else
                 Debug.Log("hubo un problema con la web");
-            }
+            } 
         Empezar();        
     }
 }

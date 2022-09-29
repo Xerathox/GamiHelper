@@ -146,7 +146,7 @@ public class CheckersBoard : MonoBehaviour {
     private void TryMove(int x1, int y1, int x2, int y2) {
         forcedPieces = ScanForPossibleMove();
 
-        startDrag = new Vector2(x1,y2);
+        startDrag = new Vector2(x1,y1);
         endDrag = new Vector2(x2,y2);
         selectedPiece = pieces[x1,y1];
 
