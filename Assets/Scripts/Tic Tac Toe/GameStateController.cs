@@ -132,24 +132,24 @@ public class GameStateController : MonoBehaviour
     }
 
     public void CerrarMenuPausa(){
-        if (PanelPausa.SetActive() == false) {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {
+            
             return;
         }
         PanelPausa.SetActive(false);
     }  
 
     public void ReiniciarNivel(){
-        if (PanelPausa.SetActive() == false) {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {
             return;
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void IrAMenuPrincipal(){
-        if (PanelPausa.SetActive() == false) {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {
             return;
         }
-        // if menu principal == false, return
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 

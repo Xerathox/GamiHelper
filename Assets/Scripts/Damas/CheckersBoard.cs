@@ -307,12 +307,21 @@ public class CheckersBoard : MonoBehaviour {
         pausePanel.SetActive(true);
     }
     public void CloseMenuPause() {
+        if (pausePanel.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         pausePanel.SetActive(false);
     }
     public void RestartLevel() {
+        if (pausePanel.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void GoMainMenu() {
+        if (pausePanel.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 

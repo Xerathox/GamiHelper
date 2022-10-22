@@ -190,13 +190,22 @@ public class GameController : MonoBehaviour {
         PanelPausa.SetActive(true);
     }
     public void CerrarMenuPausa() {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         PanelPausa.SetActive(false);
     }
     public void ReiniciarNivel() {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         SpeechController.instance.keywordRecognizer = null;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
     public void IrAMenuPrincipal() {
+        if (PanelPausa.gameObject.activeInHierarchy == false) {            
+            return;
+        }
         SpeechController.instance.keywordRecognizer = null;
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
