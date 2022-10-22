@@ -353,7 +353,7 @@ public class CheckersBoard : MonoBehaviour {
 
         foreach (string i in URLDAMAS) {
             
-            UnityWebRequest  webdamas = UnityWebRequest.Get(i);
+            UnityWebRequest webdamas = UnityWebRequest.Get(i);
             yield return webdamas.SendWebRequest();
             
             if(!webdamas.isNetworkError && !webdamas.isHttpError) {

@@ -132,14 +132,24 @@ public class GameStateController : MonoBehaviour
     }
 
     public void CerrarMenuPausa(){
+        if (PanelPausa.SetActive() == false) {
+            return;
+        }
         PanelPausa.SetActive(false);
     }  
 
     public void ReiniciarNivel(){
+        if (PanelPausa.SetActive() == false) {
+            return;
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void IrAMenuPrincipal(){
+        if (PanelPausa.SetActive() == false) {
+            return;
+        }
+        // if menu principal == false, return
         SceneManager.LoadScene(ScreenIndices.MAINMENU);
     }
 
@@ -154,6 +164,11 @@ public class GameStateController : MonoBehaviour
         MiDiccionario columna = Array.Find(columnas, item => item.key == words[0]);
         MiDiccionario fila = Array.Find(filas, item => item.key == words[1]);
         int IdFicha = columna.value + fila.value;
+        
+        if (tileList[IdFicha].gameObject.GetComponentInParent<TileController>().interactiveButton.interactable == false) {
+            Debug.Log("Espacio ocupado!");
+            return;
+        }
 
         tileList[IdFicha].gameObject.GetComponentInParent<TileController>().UpdateTile();
         Debug.Log(SpeechController.instance.TextoDicho);
